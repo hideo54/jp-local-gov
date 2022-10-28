@@ -1,4 +1,4 @@
-import * as code from './src/code';
+import * as code from './code';
 
 describe('verifyCheckDigit', () => {
     it('Returns true to valid code', () => {
