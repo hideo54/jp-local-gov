@@ -89,3 +89,16 @@ describe('getCodeInfo', () => {
         });
     });
 });
+
+describe('searchCodeInfo', () => {
+    it('Returns correct info from word', () => {
+        expect(code.searchCodeInfo('大阪')[0].name).toEqual('大阪府');
+
+        expect(code.searchCodeInfo('茨木')[0].name).toEqual('茨木市');
+
+        // 東京都北区 > 大阪府大阪市北区
+        expect(code.searchCodeInfo('北区')[0].prefecture?.name).toEqual('東京都');
+
+        expect(code.searchCodeInfo('大阪市北区')[0].code).toEqual('271276')
+    });
+});

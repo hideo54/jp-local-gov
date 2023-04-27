@@ -61,3 +61,53 @@ export const getCodeInfo = (code: string) => {
     }
     return null;
 };
+
+const removeProperty = <O extends Record<string, unknown>, K extends keyof O>(obj: O, key: K) => {
+    const { [key]: _, ...others } = obj;
+    return others;
+};
+
+export const searchCodeInfo = (searchWord: string) => {
+    const canonicalSearchWord = searchWord.replace(' ', '').replace('　', '');
+    const allPrefectureNameRecords = codesJson.map(prefecture =>
+        [prefecture.name, {
+            ...prefecture,
+            prefecture: undefined,
+        }] as const
+    );
+    const allMunicipalityFullNameRecords = codesJson.map(prefecture =>
+        prefecture.municipalities.map(municipalty =>
+            [
+                prefecture.name + municipalty.name,
+                {
+                    ...municipalty,
+                    municipality: undefined,
+                    prefecture: removeProperty(prefecture, 'municipalities'),
+                },
+            ] as const
+        )
+    ).flat();
+    const allWardFullNameRecords = codesJson.map(prefecture =>
+        prefecture.municipalities.map(municipalty =>
+            municipalty.wards?.map(ward =>
+                [
+                    prefecture.name + municipalty.name + ward.name,
+                    {
+                        ...ward,
+                        municipalty: removeProperty(municipalty, 'wards'),
+                        prefecture: removeProperty(prefecture, 'municipalities'),
+                    },
+                ] as const
+            ) || []
+        )
+    ).flat(2);
+    const fullNameRecords = [
+        ...allPrefectureNameRecords,
+        ...allMunicipalityFullNameRecords,
+        ...allWardFullNameRecords,
+    ];
+    const matchResult = fullNameRecords
+        .filter(([fullName]) => fullName.includes(canonicalSearchWord))
+        .map(([, obj]) => obj);
+    return matchResult;
+};
