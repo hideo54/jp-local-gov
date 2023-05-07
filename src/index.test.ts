@@ -1,4 +1,5 @@
 import * as code from './code';
+import * as mesh from './mesh';
 
 describe('verifyCheckDigit', () => {
     it('Returns true to valid code', () => {
@@ -102,3 +103,20 @@ describe('searchCodeInfo', () => {
         expect(code.searchCodeInfo('大阪市北区')[0].code).toEqual('271276')
     });
 });
+
+describe('coordinateToMeshCode', () => {
+    it('Returns correct mesh code', () => {
+        expect(
+            mesh.coordinateToMeshCode([
+                139.74258942903984,
+                35.67548558730212,
+            ], '4')
+        ).toEqual('533945191');
+        expect(
+            mesh.coordinateToMeshCode([
+                139.403086,
+                35.664742,
+            ], '100m')
+        ).toEqual('5339339272');
+    })
+})
