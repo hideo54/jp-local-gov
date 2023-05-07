@@ -34,7 +34,7 @@
 
 JIS X 0410 で定められている「地域メッシュコード」のための機能群です。業界でみられる様々な非標準拡張にも対応しています。
 
-#### `coordinateToMeshCode(coordinate[, degree])`
+#### `coordinateToMeshCode(coordinate[, degree]): string`
 
 座標をメッシュコードに変換します。
 
