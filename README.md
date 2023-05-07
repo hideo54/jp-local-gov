@@ -2,6 +2,11 @@
 
 `npm install jp-local-gov`
 
+![types included](https://badgen.net/npm/types/tslib)
+[![npm version](https://badge.fury.io/js/jp-local-gov.svg)](https://badge.fury.io/js/jp-local-gov)
+[![codecov](https://codecov.io/gh/hideo54/jp-local-gov/branch/main/graph/badge.svg?token=7oTGboRMqc)](https://codecov.io/gh/hideo54/jp-local-gov)
+
+
 ## 機能一覧
 
 ### 都道府県
