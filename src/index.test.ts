@@ -108,14 +108,21 @@ describe('coordinateToMeshCode', () => {
     it('Returns correct mesh code', () => {
         expect(
             mesh.coordinateToMeshCode([
+                35.67548558730212,
+                139.74258942903984,
+            ], '4')
+        ).toEqual('533945191');
+        expect(
+            mesh.coordinateToMeshCode([
+                // 緯度経度逆でも OK
                 139.74258942903984,
                 35.67548558730212,
             ], '4')
         ).toEqual('533945191');
         expect(
             mesh.coordinateToMeshCode([
-                139.403086,
                 35.664742,
+                139.403086,
             ], '100m')
         ).toEqual('5339339272');
     })

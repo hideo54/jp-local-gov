@@ -14,7 +14,16 @@ type Degree =
     | '100m'; // 国土数値情報の土地利用データなどが使用
 
 export const coordinateToMeshCode = (coordinate: [number, number], degree: Degree = 'JIS-3'): string => {
-    const [longitude, latitude] = coordinate;
+    let latitude, longitude: number;
+
+    if (24 <= coordinate[0] && coordinate[0] <= 46 && 122 <= coordinate[1] && coordinate[1] <= 149) {
+        [latitude, longitude] = coordinate;
+    } else if (24 <= coordinate[1] && coordinate[1] <= 46 && 122 <= coordinate[0] && coordinate[0] <= 149) {
+        [longitude, latitude] = coordinate;
+    } else {
+        throw new Error('Given coordinate is outside Japan.');
+    }
+
     const baseLat = latitude * 1.5;
     const baseLon = longitude - 100;
 
