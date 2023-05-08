@@ -6,7 +6,6 @@
 [![npm version](https://badge.fury.io/js/jp-local-gov.svg)](https://badge.fury.io/js/jp-local-gov)
 [![codecov](https://codecov.io/gh/hideo54/jp-local-gov/branch/main/graph/badge.svg?token=7oTGboRMqc)](https://codecov.io/gh/hideo54/jp-local-gov)
 
-
 ## 機能一覧
 
 ### 都道府県
@@ -18,6 +17,18 @@
 #### `prefectureNamesWithoutSuffix: string[]`
 
 「北海道」「東京」「大阪」のように、通常「北海道」としか呼ばれない北海道以外の都府県について、「都府県」の接尾辞を抜いた都道府県の名前を、JIS X 0401 で定められている都道府県コードの順番で収録した配列です。
+
+#### `prefectureIds: string[]`
+
+都道府県を漢字で管理するのには様々な不都合がありえるため、扱いやすい英字での ID を別途用意しています。ローマ字表記には表記ゆれがありえますが (gunma, gumma 等)、各都道府県のウェブサイトの URL から抜き出したものを採用しています。
+
+#### `prefecturalWebsites: {id: string}`
+
+各都道府県のウェブサイトの URL (正確には「オリジン」) を収録したオブジェクトです。理想的には `https://www.pref.{都道府県ID}.lg.jp/` の形式ですが、 `.lg.jp` ドメインを採用せず単に `.jp` ドメインを使用している都道府県も複数存在しています。このオブジェクトを利用することで、たとえば Google 検索で `site:https://www.pref.gunma.jp/` と指定して県公式データのみを検索するといった活用ができます。
+
+#### `prefectureNameToId(name): string`
+
+都道府県名を上述の都道府県 ID に変換します。「都府県」の有無の双方に対応しています。
 
 ### 全国地方公共団体コード
 

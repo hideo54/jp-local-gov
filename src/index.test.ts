@@ -1,5 +1,6 @@
 import * as code from './code';
 import * as mesh from './mesh';
+import * as prefecture from './prefecture';
 
 describe('verifyCheckDigit', () => {
     it('Returns true to valid code', () => {
@@ -125,5 +126,12 @@ describe('coordinateToMeshCode', () => {
                 139.403086,
             ], '100m')
         ).toEqual('5339339272');
+    })
+})
+
+describe('prefectureNameToId', () => {
+    it('Returns correct id', () => {
+        expect(prefecture.prefectureNameToId('大阪府')).toEqual('osaka');
+        expect(prefecture.prefectureNameToId('京都')).toEqual('kyoto');
     })
 })

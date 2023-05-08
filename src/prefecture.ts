@@ -46,7 +46,7 @@ export const prefectureNames = [
     '宮崎県',
     '鹿児島県',
     '沖縄県',
-];
+] as const;
 
 export const prefectureNamesWithoutSuffix = [
     '北海道',
@@ -96,4 +96,124 @@ export const prefectureNamesWithoutSuffix = [
     '宮崎',
     '鹿児島',
     '沖縄',
-];
+] as const;
+
+export const prefectureIds = [
+    'hokkaido',
+    'aomori',
+    'iwate',
+    'miyagi',
+    'akita',
+    'yamagata',
+    'fukushima',
+    'ibaraki',
+    'tochigi',
+    'gunma',
+    'saitama',
+    'chiba',
+    'tokyo',
+    'kanagawa',
+    'niigata',
+    'toyama',
+    'ishikawa',
+    'fukui',
+    'yamanashi',
+    'nagano',
+    'gifu',
+    'shizuoka',
+    'aichi',
+    'mie',
+    'shiga',
+    'kyoto',
+    'osaka',
+    'hyogo',
+    'nara',
+    'wakayama',
+    'tottori',
+    'shimane',
+    'okayama',
+    'hiroshima',
+    'yamaguchi',
+    'tokushima',
+    'kagawa',
+    'ehime',
+    'kochi',
+    'fukuoka',
+    'saga',
+    'nagasaki',
+    'kumamoto',
+    'oita',
+    'miyazaki',
+    'kagoshima',
+    'okinawa',
+] as const;
+
+type PrefectureName = typeof prefectureNames[number];
+type PrefectureNameWithoutSuffix = typeof prefectureNamesWithoutSuffix[number];
+type PrefectureId = typeof prefectureIds[number];
+
+export const prefecturalWebsites: { [key in PrefectureId]: string } = {
+    hokkaido: 'https://www.pref.hokkaido.lg.jp/',
+    aomori: 'https://www.pref.aomori.lg.jp/',
+    iwate: 'https://www.pref.iwate.jp/',
+    miyagi: 'https://www.pref.miyagi.jp/',
+    akita: 'https://www.pref.akita.lg.jp/',
+    yamagata: 'https://www.pref.yamagata.jp/',
+    fukushima: 'https://www.pref.fukushima.lg.jp/',
+    ibaraki: 'https://www.pref.ibaraki.jp/',
+    tochigi: 'https://www.pref.tochigi.lg.jp/',
+    gunma: 'https://www.pref.gunma.jp/',
+    saitama: 'https://www.pref.saitama.lg.jp/',
+    chiba: 'https://www.pref.chiba.lg.jp/',
+    tokyo: 'https://www.metro.tokyo.lg.jp/',
+    kanagawa: 'https://www.pref.kanagawa.jp/',
+    niigata: 'https://www.pref.niigata.lg.jp/',
+    toyama: 'https://www.pref.toyama.jp/',
+    ishikawa: 'https://www.pref.ishikawa.lg.jp/',
+    fukui: 'https://www.pref.fukui.lg.jp/',
+    yamanashi: 'https://www.pref.yamanashi.jp/',
+    nagano: 'https://www.pref.nagano.lg.jp/',
+    gifu: 'https://www.pref.gifu.lg.jp/',
+    shizuoka: 'https://www.pref.shizuoka.jp/',
+    aichi: 'https://www.pref.aichi.jp/',
+    mie: 'https://www.pref.mie.lg.jp/',
+    shiga: 'https://www.pref.shiga.lg.jp/',
+    kyoto: 'https://www.pref.kyoto.jp/',
+    osaka: 'https://www.pref.osaka.lg.jp/',
+    hyogo: 'https://web.pref.hyogo.lg.jp/',
+    nara: 'https://www.pref.nara.jp/',
+    wakayama: 'https://www.pref.wakayama.lg.jp/',
+    tottori: 'https://www.pref.tottori.lg.jp/',
+    shimane: 'https://www.pref.shimane.lg.jp/',
+    okayama: 'https://www.pref.okayama.jp/',
+    hiroshima: 'https://www.pref.hiroshima.lg.jp/',
+    yamaguchi: 'https://www.pref.yamaguchi.lg.jp/',
+    tokushima: 'https://www.pref.tokushima.lg.jp/',
+    kagawa: 'https://www.pref.kagawa.lg.jp/',
+    ehime: 'https://www.pref.ehime.jp/',
+    kochi: 'https://www.pref.kochi.lg.jp/',
+    fukuoka: 'https://www.pref.fukuoka.lg.jp/',
+    saga: 'https://www.pref.saga.lg.jp/',
+    nagasaki: 'https://www.pref.nagasaki.jp/',
+    kumamoto: 'https://www.pref.kumamoto.jp/',
+    oita: 'https://www.pref.oita.jp/',
+    miyazaki: 'https://www.pref.miyazaki.lg.jp/',
+    kagoshima: 'https://www.pref.kagoshima.jp/',
+    okinawa: 'https://www.pref.okinawa.jp/',
+};
+
+export const prefectureNameToId = (query: PrefectureName | PrefectureNameWithoutSuffix): PrefectureId => {
+    const isWithSuffix = (query: string): query is PrefectureName => (
+        prefectureNames.some(name => name === query)
+    );
+    const isWithoutSuffix = (query: string): query is PrefectureNameWithoutSuffix => (
+        prefectureNamesWithoutSuffix.some(name => name === query)
+    );
+    if (isWithSuffix(query)) {
+        return prefectureIds[prefectureNames.indexOf(query)];
+    } else if (isWithoutSuffix(query)) {
+        return prefectureIds[prefectureNamesWithoutSuffix.indexOf(query)];
+    } else {
+        throw new Error('Wrong prefecture name.');
+    }
+};
