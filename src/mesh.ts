@@ -60,14 +60,14 @@ export const coordinateToMeshCode = (coordinate: [number, number], degree: Degre
     );
     if (degree === 'JIS-3-1/2' || degree === '500m' || degree === '4') return halfMeshCode;
 
-    const halfHalfMeshCode = standardMeshCode + (
+    const halfHalfMeshCode = halfMeshCode + (
         + 1
         + Math.floor(baseLat * 8 * 10 * 2 * 2) % 2 * 2
         + Math.floor(baseLon * 8 * 10 * 2 * 2) % 2
     );
     if (degree === 'JIS-3-1/4' || degree === '250m' || degree === '5') return halfHalfMeshCode;
 
-    const halfHalfHalfMeshCode = standardMeshCode + (
+    const halfHalfHalfMeshCode = halfHalfMeshCode + (
         + 1
         + Math.floor(baseLat * 8 * 10 * 2 * 2 * 2) % 2 * 2
         + Math.floor(baseLon * 8 * 10 * 2 * 2 * 2) % 2
