@@ -150,7 +150,7 @@ export const prefectureIds = [
 
 type PrefectureName = typeof prefectureNames[number];
 type PrefectureNameWithoutSuffix = typeof prefectureNamesWithoutSuffix[number];
-type PrefectureId = typeof prefectureIds[number];
+export type PrefectureId = typeof prefectureIds[number];
 
 export const prefecturalWebsites: { [key in PrefectureId]: string } = {
     hokkaido: 'https://www.pref.hokkaido.lg.jp/',
