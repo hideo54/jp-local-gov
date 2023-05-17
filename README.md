@@ -26,7 +26,11 @@
 
 各都道府県のウェブサイトの URL (正確には「オリジン」) を収録したオブジェクトです。理想的には `https://www.pref.{都道府県ID}.lg.jp/` の形式ですが、 `.lg.jp` ドメインを採用せず単に `.jp` ドメインを使用している都道府県も複数存在しています。このオブジェクトを利用することで、たとえば Google 検索で `site:https://www.pref.gunma.jp/` と指定して県公式データのみを検索するといった活用ができます。
 
-#### `prefectureNameToId(name): string`
+#### `getPrefectureName(name[, removeSuffix: boolean]): string`
+
+上述の都道府県 ID を都道府県名に変換します。
+
+#### `getPrefectureId(id): string`
 
 都道府県名を上述の都道府県 ID に変換します。「都府県」の有無の双方に対応しています。
 

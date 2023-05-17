@@ -202,7 +202,13 @@ export const prefecturalWebsites: { [key in PrefectureId]: string } = {
     okinawa: 'https://www.pref.okinawa.jp/',
 };
 
-export const prefectureNameToId = (query: PrefectureName | PrefectureNameWithoutSuffix): PrefectureId => {
+export const getPrefectureName = (prefId: PrefectureId): PrefectureName => {
+    const i = prefectureIds.indexOf(prefId);
+    if (i === -1) throw new Error('No such prefecture id.');
+    return prefectureNames[i];
+};
+
+export const getPrefectureId = (query: PrefectureName | PrefectureNameWithoutSuffix): PrefectureId => {
     const isWithSuffix = (query: string): query is PrefectureName => (
         prefectureNames.some(name => name === query)
     );
