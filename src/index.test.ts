@@ -145,12 +145,18 @@ describe('coordinateToMeshCode', () => {
                 139.403086,
             ], '100m')
         ).toEqual('5339339272');
-    })
-})
+    });
+});
 
-describe('prefectureNameToId', () => {
+describe('getPrefectureName', () => {
+    it('Returns correct name', () => {
+        expect(prefecture.getPrefectureName('osaka')).toEqual('大阪府');
+    });
+});
+
+describe('getPrefectureId', () => {
     it('Returns correct id', () => {
-        expect(prefecture.prefectureNameToId('大阪府')).toEqual('osaka');
-        expect(prefecture.prefectureNameToId('京都')).toEqual('kyoto');
-    })
-})
+        expect(prefecture.getPrefectureId('大阪府')).toEqual('osaka');
+        expect(prefecture.getPrefectureId('京都')).toEqual('kyoto');
+    });
+});
