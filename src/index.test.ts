@@ -1,6 +1,7 @@
 import * as code from './code';
 import * as mesh from './mesh';
 import * as prefecture from './prefecture';
+import * as senkyo from './senkyo';
 
 describe('verifyCheckDigit', () => {
     it('Returns true to valid code', () => {
@@ -158,5 +159,12 @@ describe('getPrefectureId', () => {
     it('Returns correct id', () => {
         expect(prefecture.getPrefectureId('大阪府')).toEqual('osaka');
         expect(prefecture.getPrefectureId('京都')).toEqual('kyoto');
+    });
+});
+
+describe('getShuDistrictCounts', () => {
+    it('Returns correct counts', () => {
+        expect(senkyo.getShuDistrictCounts('2023-10-22').tokyo).toStrictEqual(25);
+        expect(senkyo.getShuDistrictCounts('2023-10-22', 'legally').tokyo).toStrictEqual(30);
     });
 });
