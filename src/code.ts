@@ -2,6 +2,8 @@ import codesJson from './codes.json';
 
 // Official document: https://www.soumu.go.jp/denshijiti/code.html
 
+export const allCodes = codesJson;
+
 // https://www.soumu.go.jp/main_content/000137948.pdf
 export const verifyCheckDigit = (code: string) => {
     const satisfyFormat = /^\d{6}$/.test(code);
