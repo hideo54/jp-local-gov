@@ -202,6 +202,59 @@ export const prefecturalWebsites: { [key in PrefectureId]: string } = {
     okinawa: 'https://www.pref.okinawa.jp/',
 };
 
+// https://www.mlit.go.jp/tec/content/001708606.pdf
+// (同様の資料 https://www.mlit.go.jp/tec/nyuusatu/hattyu/rinsetu.pdf には誤りがあるので注意)
+export const adjacentPrefectures: { [key in PrefectureId]: PrefectureId[] } = {
+    hokkaido: ['aomori'],
+    aomori: ['hokkaido', 'iwate', 'akita'],
+    iwate: ['aomori', 'miyagi', 'akita'],
+    miyagi: ['iwate', 'akita', 'yamagata', 'fukushima'],
+    akita: ['aomori', 'iwate', 'miyagi', 'yamagata'],
+    yamagata: ['miyagi', 'akita', 'fukushima', 'niigata'],
+    fukushima: ['miyagi', 'yamagata', 'ibaraki', 'tochigi', 'gunma', 'niigata'],
+    ibaraki: ['fukushima', 'tochigi', 'saitama', 'chiba'],
+    tochigi: ['fukushima', 'ibaraki', 'gunma', 'saitama'],
+    gunma: ['fukushima', 'tochigi', 'saitama', 'niigata', 'nagano'],
+    saitama: ['ibaraki', 'tochigi', 'gunma', 'chiba', 'tokyo', 'yamanashi', 'nagano'],
+    chiba: ['ibaraki', 'saitama', 'tokyo', 'kanagawa'],
+    tokyo: ['saitama', 'chiba', 'kanagawa', 'yamanashi'],
+    kanagawa: ['chiba', 'tokyo', 'yamanashi', 'shizuoka'],
+    niigata: ['yamagata', 'fukushima', 'gunma', 'toyama', 'nagano'],
+    toyama: ['niigata', 'ishikawa', 'nagano', 'gifu'],
+    ishikawa: ['toyama', 'fukui', 'gifu'],
+    fukui: ['ishikawa', 'gifu', 'shiga', 'kyoto'],
+    yamanashi: ['saitama', 'tokyo', 'kanagawa', 'nagano', 'shizuoka'],
+    nagano: ['gunma', 'saitama', 'niigata', 'toyama', 'yamanashi', 'gifu', 'shizuoka', 'aichi'],
+    gifu: ['toyama', 'ishikawa', 'fukui', 'nagano', 'aichi', 'mie', 'shiga'],
+    shizuoka: ['kanagawa', 'yamanashi', 'nagano', 'aichi'],
+    aichi: ['nagano', 'gifu', 'shizuoka', 'mie'],
+    mie: ['gifu', 'aichi', 'shizuoka', 'kyoto', 'nara', 'wakayama'],
+    shiga: ['fukui', 'gifu', 'mie', 'kyoto'],
+    kyoto: ['fukui', 'mie', 'shiga', 'osaka', 'hyogo', 'nara'],
+    osaka: ['kyoto', 'hyogo', 'nara', 'wakayama'],
+    hyogo: ['kyoto', 'osaka', 'tottori', 'okayama', 'tokushima'],
+    nara: ['mie', 'kyoto', 'osaka', 'wakayama'],
+    wakayama: ['mie', 'osaka', 'nara'],
+    tottori: ['hyogo', 'shimane', 'okayama', 'hiroshima'],
+    shimane: ['tottori', 'hiroshima', 'yamaguchi'],
+    // 国土交通省の一部の文書では次の行で、鳥取県が島根県と間違えられている
+    okayama: ['hyogo', 'tottori', 'shimane', 'hiroshima', 'kagawa'],
+    hiroshima: ['tottori', 'shimane', 'okayama', 'yamaguchi', 'ehime'],
+    yamaguchi: ['shimane', 'hiroshima', 'fukuoka'],
+    tokushima: ['hyogo', 'kagawa', 'ehime', 'kochi'],
+    kagawa: ['okayama', 'tokushima', 'ehime'],
+    ehime: ['hiroshima', 'tokushima', 'kagawa', 'kochi'],
+    kochi: ['tokushima', 'ehime'],
+    fukuoka: ['yamaguchi', 'saga', 'kumamoto', 'oita'],
+    saga: ['fukuoka', 'nagasaki'],
+    nagasaki: ['saga'],
+    kumamoto: ['fukuoka', 'oita', 'miyazaki', 'kagoshima'],
+    oita: ['fukuoka', 'kumamoto', 'miyazaki'],
+    miyazaki: ['kumamoto', 'oita', 'kagoshima'],
+    kagoshima: ['kumamoto', 'miyazaki'],
+    okinawa: [],
+};
+
 export const getPrefectureName = (prefId: PrefectureId): PrefectureName => {
     const i = prefectureIds.indexOf(prefId);
     if (i === -1) throw new Error('No such prefecture id.');
