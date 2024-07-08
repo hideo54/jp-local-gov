@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import type { PrefectureId } from './prefecture';
 
-// 1994年施行
+// 1994年3月4日施行
 export const shuDistrictCounts1994: { [key in PrefectureId]: number } = {
     hokkaido: 13,
     aomori: 4,
@@ -280,52 +280,132 @@ export const getShuDistrictCounts = (date: string, sort: 'legally' | 'by-vote-da
     // 第49回: 2021年10月14日解散 10月31日投開票
 };
 
-export const blockNames = {
-    hokkaido: '北海道ブロック',
-    tohoku: '東北ブロック',
-    kitakanto: '北関東ブロック',
-    minamikanto: '南関東ブロック',
-    tokyo: '東京ブロック',
-    hokurikushinetsu: '北陸信越ブロック',
-    tokai: '東海ブロック',
-    kinki: '近畿ブロック',
-    chugoku: '中国ブロック',
-    shikoku: '四国ブロック',
-    kyushu: '九州ブロック',
-} as const;
+// 公職選挙法 別表2 に拠る。
+const blockNames = [
+    '北海道',
+    '東北',
+    '北関東',
+    '南関東',
+    '東京',
+    '北陸信越',
+    '東海',
+    '近畿',
+    '中国',
+    '四国',
+    '九州',
+] as const;
 
-export type BlockId = keyof typeof blockNames;
-export type BlockName = typeof blockNames[BlockId];
+const blockIds = [
+    'hokkaido',
+    'tohoku',
+    'kitakanto',
+    'minamikanto',
+    'tokyo',
+    'hokurikushinetsu',
+    'tokai',
+    'kinki',
+    'chugoku',
+    'shikoku',
+    'kyushu',
+] as const;
 
-export const blockPrefectures: { [key in BlockId]: PrefectureId[] } = {
-    hokkaido: ['hokkaido'],
-    tohoku: ['aomori', 'iwate', 'miyagi', 'akita', 'yamagata', 'fukushima'],
-    kitakanto: ['ibaraki', 'tochigi', 'gunma', 'saitama'],
-    minamikanto: ['chiba', 'kanagawa', 'yamanashi'],
-    tokyo: ['tokyo'],
-    hokurikushinetsu: ['niigata', 'toyama', 'ishikawa', 'fukui', 'nagano'],
-    tokai: ['gifu', 'shizuoka', 'aichi', 'mie'],
-    kinki: ['shiga', 'kyoto', 'osaka', 'hyogo', 'nara', 'wakayama'],
-    chugoku: ['tottori', 'shimane', 'okayama', 'hiroshima', 'yamaguchi'],
-    shikoku: ['tokushima', 'kagawa', 'ehime', 'kochi'],
-    kyushu: ['fukuoka', 'saga', 'nagasaki', 'kumamoto', 'oita', 'miyazaki', 'kagoshima', 'okinawa'],
+type BlockName = typeof blockNames[number];
+type BlockId = typeof blockIds[number];
+
+export const getBlockName = (blockId: BlockId): BlockName => {
+    const i = blockIds.indexOf(blockId);
+    if (i === -1) throw new Error('No such block id.');
+    return blockNames[i];
 };
 
-export const blockSeats2017: { [key in BlockId]: number } = {
+export const getBlockId = (blockName: BlockName): BlockId => {
+    const i = blockNames.indexOf(blockName);
+    if (i === -1) throw new Error('No such block name. Do not include words like "比例", "ブロック" etc.');
+    return blockIds[i];
+};
+
+export const getBlockPrefectures = (blockId: BlockId): PrefectureId[] => {
+    if (!blockIds.includes(blockId)) {
+        throw new Error('No such block id.');
+    }
+    const blockPrefectures: {[key in BlockId]: PrefectureId[]} =  {
+        hokkaido: ['hokkaido'],
+        tohoku: ['aomori', 'iwate', 'miyagi', 'akita', 'yamagata', 'fukushima'],
+        kitakanto: ['ibaraki', 'tochigi', 'gunma', 'saitama'],
+        minamikanto: ['chiba', 'kanagawa', 'yamanashi'],
+        tokyo: ['tokyo'],
+        hokurikushinetsu: ['niigata', 'toyama', 'ishikawa', 'fukui', 'nagano'],
+        tokai: ['gifu', 'shizuoka', 'aichi', 'mie'],
+        kinki: ['shiga', 'kyoto', 'osaka', 'hyogo', 'nara', 'wakayama'],
+        chugoku: ['tottori', 'shimane', 'okayama', 'hiroshima', 'yamaguchi'],
+        shikoku: ['tokushima', 'kagawa', 'ehime', 'kochi'],
+        kyushu: ['fukuoka', 'saga', 'nagasaki', 'kumamoto', 'oita', 'miyazaki', 'kagoshima', 'okinawa'],
+    };
+    return blockPrefectures[blockId];
+};
+
+// 1994年3月4日施行
+export const blockSeatCounts1994: { [key in BlockId]: number } = {
+    hokkaido: 9,
+    tohoku: 16,
+    kitakanto: 21,
+    minamikanto: 23,
+    tokyo: 19,
+    hokurikushinetsu: 13,
+    tokai: 23,
+    kinki: 33,
+    chugoku: 13,
+    shikoku: 7,
+    kyushu: 23,
+};
+
+// 2000年2月9日施行
+export const blockSeatCounts2000: { [key in BlockId]: number } = {
     hokkaido: 8,
-    tohoku: 13,
-    kitakanto: 19,
+    tohoku: 14,
+    kitakanto: 20,
+    minamikanto: 21,
+    tokyo: 17,
+    hokurikushinetsu: 11,
+    tokai: 21,
+    kinki: 30,
+    chugoku: 11,
+    shikoku: 6,
+    kyushu: 21,
+};
+
+// 2002年8月31日施行
+export const blockSeatCounts2002: { [key in BlockId]: number } = {
+    hokkaido: 8,
+    tohoku: 14,
+    kitakanto: 20,
+    minamikanto: 22, // 1増
+    tokyo: 17,
+    hokurikushinetsu: 11,
+    tokai: 21,
+    kinki: 29, // 1減
+    chugoku: 11,
+    shikoku: 6,
+    kyushu: 21,
+};
+
+// 2017年7月16日施行
+export const blockSeatCounts2017: { [key in BlockId]: number } = {
+    hokkaido: 8,
+    tohoku: 13, // 1減
+    kitakanto: 19, // 1減
     minamikanto: 22,
     tokyo: 17,
     hokurikushinetsu: 11,
     tokai: 21,
-    kinki: 28,
+    kinki: 28, // 1減
     chugoku: 11,
     shikoku: 6,
-    kyushu: 20,
+    kyushu: 20, // 1減
 };
 
-export const blockSeats2022: { [key in BlockId]: number } = {
+// 2022年12月28日施行
+export const blockSeatCounts2022: { [key in BlockId]: number } = {
     hokkaido: 8,
     tohoku: 12, // 1減
     kitakanto: 19,
@@ -337,4 +417,28 @@ export const blockSeats2022: { [key in BlockId]: number } = {
     chugoku: 10, // 1減
     shikoku: 6,
     kyushu: 20,
+};
+
+export const getShuHireiBlockSeatCounts = (date: string, sort: 'legally' | 'by-vote-day' = 'by-vote-day') => {
+    const day = dayjs(date);
+    if (sort === 'legally') {
+        if (day.isBefore('2000-02-09')) return blockSeatCounts1994;
+        if (day.isBefore('2002-08-31')) return blockSeatCounts2000;
+        if (day.isBefore('2017-07-16')) return blockSeatCounts2002;
+        if (day.isBefore('2022-12-28')) return blockSeatCounts2017;
+        return shuDistrictCounts2022;
+    }
+    // 第41回: 1996年 9月27日解散 10月20日投開票
+    if (day.isBefore('2000-06-02')) return blockSeatCounts1994;
+    // 第42回: 2000年 6月 2日解散  6月25日投開票
+    if (day.isBefore('2003-10-10')) return blockSeatCounts2000;
+    // 第43回: 2003年10月10日解散 11月9日投開票
+    // 第44回: 2005年 8月 8日解散  9月11日投開票
+    // 第45回: 2009年 7月21日解散  8月30日投開票
+    // 第46回: 2012年11月16日解散 12月16日投開票
+    // 第47回: 2014年11月21日解散 12月14日投開票
+    if (day.isBefore('2017-09-28')) return blockSeatCounts2002;
+    // 第48回: 2017年 9月28日解散 10月22日投開票
+    return shuDistrictCounts2017;
+    // 第49回: 2021年10月14日解散 10月31日投開票
 };
