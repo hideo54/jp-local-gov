@@ -281,7 +281,7 @@ export const getShuDistrictCounts = (date: string, sort: 'legally' | 'by-vote-da
 };
 
 // 公職選挙法 別表2 に拠る。
-const blockNames = [
+const hireiBlockNames = [
     '北海道',
     '東北',
     '北関東',
@@ -295,7 +295,7 @@ const blockNames = [
     '九州',
 ] as const;
 
-const blockIds = [
+const hireiBlockIds = [
     'hokkaido',
     'tohoku',
     'kitakanto',
@@ -309,26 +309,26 @@ const blockIds = [
     'kyushu',
 ] as const;
 
-type BlockName = typeof blockNames[number];
-type BlockId = typeof blockIds[number];
+type HireiBlockName = typeof hireiBlockNames[number];
+type HireiBlockId = typeof hireiBlockIds[number];
 
-export const getBlockName = (blockId: BlockId): BlockName => {
-    const i = blockIds.indexOf(blockId);
-    if (i === -1) throw new Error('No such block id.');
-    return blockNames[i];
+export const getHireiBlockName = (hireiBlockId: HireiBlockId): HireiBlockName => {
+    const i = hireiBlockIds.indexOf(hireiBlockId);
+    if (i === -1) throw new Error('No such hirei block id.');
+    return hireiBlockNames[i];
 };
 
-export const getBlockId = (blockName: BlockName): BlockId => {
-    const i = blockNames.indexOf(blockName);
-    if (i === -1) throw new Error('No such block name. Do not include words like "比例", "ブロック" etc.');
-    return blockIds[i];
+export const getHireiBlockId = (hireiBlockName: HireiBlockName): HireiBlockId => {
+    const i = hireiBlockNames.indexOf(hireiBlockName);
+    if (i === -1) throw new Error('No such hirei block name. Do not include words like "比例", "ブロック" etc.');
+    return hireiBlockIds[i];
 };
 
-export const getBlockPrefectures = (blockId: BlockId): PrefectureId[] => {
-    if (!blockIds.includes(blockId)) {
-        throw new Error('No such block id.');
+export const getHireiBlockPrefectures = (hireiBlockId: HireiBlockId): PrefectureId[] => {
+    if (!hireiBlockIds.includes(hireiBlockId)) {
+        throw new Error('No such hirei block id.');
     }
-    const blockPrefectures: {[key in BlockId]: PrefectureId[]} =  {
+    const hireiBlockPrefectures: {[key in HireiBlockId]: PrefectureId[]} =  {
         hokkaido: ['hokkaido'],
         tohoku: ['aomori', 'iwate', 'miyagi', 'akita', 'yamagata', 'fukushima'],
         kitakanto: ['ibaraki', 'tochigi', 'gunma', 'saitama'],
@@ -341,11 +341,11 @@ export const getBlockPrefectures = (blockId: BlockId): PrefectureId[] => {
         shikoku: ['tokushima', 'kagawa', 'ehime', 'kochi'],
         kyushu: ['fukuoka', 'saga', 'nagasaki', 'kumamoto', 'oita', 'miyazaki', 'kagoshima', 'okinawa'],
     };
-    return blockPrefectures[blockId];
+    return hireiBlockPrefectures[hireiBlockId];
 };
 
 // 1994年3月4日施行
-export const blockSeatCounts1994: { [key in BlockId]: number } = {
+export const hireiBlockSeatCounts1994: { [key in HireiBlockId]: number } = {
     hokkaido: 9,
     tohoku: 16,
     kitakanto: 21,
@@ -360,7 +360,7 @@ export const blockSeatCounts1994: { [key in BlockId]: number } = {
 };
 
 // 2000年2月9日施行
-export const blockSeatCounts2000: { [key in BlockId]: number } = {
+export const hireiBlockSeatCounts2000: { [key in HireiBlockId]: number } = {
     hokkaido: 8,
     tohoku: 14,
     kitakanto: 20,
@@ -375,7 +375,7 @@ export const blockSeatCounts2000: { [key in BlockId]: number } = {
 };
 
 // 2002年8月31日施行
-export const blockSeatCounts2002: { [key in BlockId]: number } = {
+export const hireiBlockSeatCounts2002: { [key in HireiBlockId]: number } = {
     hokkaido: 8,
     tohoku: 14,
     kitakanto: 20,
@@ -390,7 +390,7 @@ export const blockSeatCounts2002: { [key in BlockId]: number } = {
 };
 
 // 2017年7月16日施行
-export const blockSeatCounts2017: { [key in BlockId]: number } = {
+export const hireiBlockSeatCounts2017: { [key in HireiBlockId]: number } = {
     hokkaido: 8,
     tohoku: 13, // 1減
     kitakanto: 19, // 1減
@@ -405,7 +405,7 @@ export const blockSeatCounts2017: { [key in BlockId]: number } = {
 };
 
 // 2022年12月28日施行
-export const blockSeatCounts2022: { [key in BlockId]: number } = {
+export const hireiBlockSeatCounts2022: { [key in HireiBlockId]: number } = {
     hokkaido: 8,
     tohoku: 12, // 1減
     kitakanto: 19,
@@ -422,22 +422,22 @@ export const blockSeatCounts2022: { [key in BlockId]: number } = {
 export const getShuHireiBlockSeatCounts = (date: string, sort: 'legally' | 'by-vote-day' = 'by-vote-day') => {
     const day = dayjs(date);
     if (sort === 'legally') {
-        if (day.isBefore('2000-02-09')) return blockSeatCounts1994;
-        if (day.isBefore('2002-08-31')) return blockSeatCounts2000;
-        if (day.isBefore('2017-07-16')) return blockSeatCounts2002;
-        if (day.isBefore('2022-12-28')) return blockSeatCounts2017;
+        if (day.isBefore('2000-02-09')) return hireiBlockSeatCounts1994;
+        if (day.isBefore('2002-08-31')) return hireiBlockSeatCounts2000;
+        if (day.isBefore('2017-07-16')) return hireiBlockSeatCounts2002;
+        if (day.isBefore('2022-12-28')) return hireiBlockSeatCounts2017;
         return shuDistrictCounts2022;
     }
     // 第41回: 1996年 9月27日解散 10月20日投開票
-    if (day.isBefore('2000-06-02')) return blockSeatCounts1994;
+    if (day.isBefore('2000-06-02')) return hireiBlockSeatCounts1994;
     // 第42回: 2000年 6月 2日解散  6月25日投開票
-    if (day.isBefore('2003-10-10')) return blockSeatCounts2000;
+    if (day.isBefore('2003-10-10')) return hireiBlockSeatCounts2000;
     // 第43回: 2003年10月10日解散 11月9日投開票
     // 第44回: 2005年 8月 8日解散  9月11日投開票
     // 第45回: 2009年 7月21日解散  8月30日投開票
     // 第46回: 2012年11月16日解散 12月16日投開票
     // 第47回: 2014年11月21日解散 12月14日投開票
-    if (day.isBefore('2017-09-28')) return blockSeatCounts2002;
+    if (day.isBefore('2017-09-28')) return hireiBlockSeatCounts2002;
     // 第48回: 2017年 9月28日解散 10月22日投開票
     return shuDistrictCounts2017;
     // 第49回: 2021年10月14日解散 10月31日投開票
