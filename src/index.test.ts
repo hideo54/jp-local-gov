@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
 
-import * as code from './code';
-import * as mesh from './mesh';
-import * as prefecture from './prefecture';
-import * as senkyo from './senkyo';
+import * as code from './code.js';
+import * as mesh from './mesh.js';
+import * as prefecture from './prefecture.js';
+import * as senkyo from './senkyo.js';
 
 describe('verifyCheckDigit', () => {
     it('Returns true to valid code', () => {
