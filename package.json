@@ -5,7 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "test": "jest src --collect-coverage"
+    "test": "jest src --collect-coverage",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check"
   },
   "types": "dist/index.d.ts",
   "repository": {
@@ -22,6 +24,7 @@
   "devDependencies": {
     "@types/jest": "^29.5.12",
     "jest": "^29.7.0",
+    "oxfmt": "^0.46.0",
     "ts-jest": "^29.1.5",
     "typescript": "^5.5.3"
   },
