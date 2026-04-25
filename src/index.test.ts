@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest';
+
 import * as code from './code';
 import * as mesh from './mesh';
 import * as prefecture from './prefecture';
