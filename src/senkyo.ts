@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+
 import type { PrefectureId } from './prefecture';
 
 // 1994年3月4日施行
@@ -256,7 +257,10 @@ export const shuDistrictCounts2022: { [key in PrefectureId]: number } = {
     okinawa: 4,
 };
 
-export const getShuDistrictCounts = (date: string, sort: 'legally' | 'by-vote-day' = 'by-vote-day') => {
+export const getShuDistrictCounts = (
+    date: string,
+    sort: 'legally' | 'by-vote-day' = 'by-vote-day',
+) => {
     const day = dayjs(date);
     if (sort === 'legally') {
         if (day.isBefore('2002-08-31')) return shuDistrictCounts1994;
@@ -309,8 +313,8 @@ const hireiBlockIds = [
     'kyushu',
 ] as const;
 
-type HireiBlockName = typeof hireiBlockNames[number];
-type HireiBlockId = typeof hireiBlockIds[number];
+type HireiBlockName = (typeof hireiBlockNames)[number];
+type HireiBlockId = (typeof hireiBlockIds)[number];
 
 export const getHireiBlockName = (hireiBlockId: HireiBlockId): HireiBlockName => {
     const i = hireiBlockIds.indexOf(hireiBlockId);
@@ -320,7 +324,10 @@ export const getHireiBlockName = (hireiBlockId: HireiBlockId): HireiBlockName =>
 
 export const getHireiBlockId = (hireiBlockName: HireiBlockName): HireiBlockId => {
     const i = hireiBlockNames.indexOf(hireiBlockName);
-    if (i === -1) throw new Error('No such hirei block name. Do not include words like "比例", "ブロック" etc.');
+    if (i === -1)
+        throw new Error(
+            'No such hirei block name. Do not include words like "比例", "ブロック" etc.',
+        );
     return hireiBlockIds[i];
 };
 
@@ -328,7 +335,7 @@ export const getHireiBlockPrefectures = (hireiBlockId: HireiBlockId): Prefecture
     if (!hireiBlockIds.includes(hireiBlockId)) {
         throw new Error('No such hirei block id.');
     }
-    const hireiBlockPrefectures: {[key in HireiBlockId]: PrefectureId[]} =  {
+    const hireiBlockPrefectures: { [key in HireiBlockId]: PrefectureId[] } = {
         hokkaido: ['hokkaido'],
         tohoku: ['aomori', 'iwate', 'miyagi', 'akita', 'yamagata', 'fukushima'],
         kitakanto: ['ibaraki', 'tochigi', 'gunma', 'saitama'],
@@ -339,7 +346,16 @@ export const getHireiBlockPrefectures = (hireiBlockId: HireiBlockId): Prefecture
         kinki: ['shiga', 'kyoto', 'osaka', 'hyogo', 'nara', 'wakayama'],
         chugoku: ['tottori', 'shimane', 'okayama', 'hiroshima', 'yamaguchi'],
         shikoku: ['tokushima', 'kagawa', 'ehime', 'kochi'],
-        kyushu: ['fukuoka', 'saga', 'nagasaki', 'kumamoto', 'oita', 'miyazaki', 'kagoshima', 'okinawa'],
+        kyushu: [
+            'fukuoka',
+            'saga',
+            'nagasaki',
+            'kumamoto',
+            'oita',
+            'miyazaki',
+            'kagoshima',
+            'okinawa',
+        ],
     };
     return hireiBlockPrefectures[hireiBlockId];
 };
@@ -419,7 +435,10 @@ export const hireiBlockSeatCounts2022: { [key in HireiBlockId]: number } = {
     kyushu: 20,
 };
 
-export const getShuHireiBlockSeatCounts = (date: string, sort: 'legally' | 'by-vote-day' = 'by-vote-day') => {
+export const getShuHireiBlockSeatCounts = (
+    date: string,
+    sort: 'legally' | 'by-vote-day' = 'by-vote-day',
+) => {
     const day = dayjs(date);
     if (sort === 'legally') {
         if (day.isBefore('2000-02-09')) return hireiBlockSeatCounts1994;

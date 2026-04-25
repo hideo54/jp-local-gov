@@ -148,9 +148,9 @@ export const prefectureIds = [
     'okinawa',
 ] as const;
 
-type PrefectureName = typeof prefectureNames[number];
-type PrefectureNameWithoutSuffix = typeof prefectureNamesWithoutSuffix[number];
-export type PrefectureId = typeof prefectureIds[number];
+type PrefectureName = (typeof prefectureNames)[number];
+type PrefectureNameWithoutSuffix = (typeof prefectureNamesWithoutSuffix)[number];
+export type PrefectureId = (typeof prefectureIds)[number];
 
 export const prefecturalWebsites: { [key in PrefectureId]: string } = {
     hokkaido: 'https://www.pref.hokkaido.lg.jp/',
@@ -261,13 +261,13 @@ export const getPrefectureName = (prefId: PrefectureId): PrefectureName => {
     return prefectureNames[i];
 };
 
-export const getPrefectureId = (query: PrefectureName | PrefectureNameWithoutSuffix): PrefectureId => {
-    const isWithSuffix = (query: string): query is PrefectureName => (
-        prefectureNames.some(name => name === query)
-    );
-    const isWithoutSuffix = (query: string): query is PrefectureNameWithoutSuffix => (
-        prefectureNamesWithoutSuffix.some(name => name === query)
-    );
+export const getPrefectureId = (
+    query: PrefectureName | PrefectureNameWithoutSuffix,
+): PrefectureId => {
+    const isWithSuffix = (query: string): query is PrefectureName =>
+        prefectureNames.some((name) => name === query);
+    const isWithoutSuffix = (query: string): query is PrefectureNameWithoutSuffix =>
+        prefectureNamesWithoutSuffix.some((name) => name === query);
     if (isWithSuffix(query)) {
         return prefectureIds[prefectureNames.indexOf(query)];
     } else if (isWithoutSuffix(query)) {
