@@ -12,6 +12,10 @@
         "type": "git",
         "url": "git+https://github.com/hideo54/jp-local-gov.git"
     },
+    "files": [
+        "dist",
+        "src"
+    ],
     "type": "module",
     "exports": {
         ".": {
