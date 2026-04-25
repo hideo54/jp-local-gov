@@ -18,7 +18,9 @@
         "build": "tsc",
         "test": "jest src --collect-coverage",
         "fmt": "oxfmt",
-        "fmt:check": "oxfmt --check"
+        "fmt:check": "oxfmt --check",
+        "lint": "oxlint",
+        "lint:fix": "oxlint --fix"
     },
     "dependencies": {
         "dayjs": "^1.11.11"
@@ -27,6 +29,7 @@
         "@types/jest": "^29.5.12",
         "jest": "^29.7.0",
         "oxfmt": "^0.46.0",
+        "oxlint": "^1.61.0",
         "ts-jest": "^29.1.5",
         "typescript": "^5.5.3"
     },
