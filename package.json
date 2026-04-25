@@ -19,8 +19,8 @@
         "test": "vitest",
         "fmt": "oxfmt",
         "fmt:check": "oxfmt --check",
-        "lint": "oxlint",
-        "lint:fix": "oxlint --fix"
+        "lint": "oxlint --fix --fix-suggestions --fix-dangerously",
+        "lint:check": "oxlint"
     },
     "dependencies": {
         "dayjs": "^1.11.11"
