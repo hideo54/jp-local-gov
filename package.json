@@ -18,6 +18,7 @@
     "url": "https://github.com/hideo54/jp-local-gov/issues"
   },
   "homepage": "https://github.com/hideo54/jp-local-gov#readme",
+  "packageManager": "pnpm@10.33.0",
   "devDependencies": {
     "@types/jest": "^29.5.12",
     "jest": "^29.7.0",
