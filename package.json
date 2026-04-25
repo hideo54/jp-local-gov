@@ -15,7 +15,7 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
-        "build": "tsc",
+        "build": "tsgo",
         "test": "vitest",
         "fmt": "oxfmt",
         "fmt:check": "oxfmt --check",
@@ -26,6 +26,7 @@
         "dayjs": "^1.11.11"
     },
     "devDependencies": {
+        "@typescript/native-preview": "7.0.0-dev.20260423.1",
         "lint-staged": "^16.4.0",
         "oxfmt": "^0.46.0",
         "oxlint": "^1.61.0",
