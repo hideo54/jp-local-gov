@@ -149,7 +149,8 @@ export const prefectureIds = [
 ] as const;
 
 type PrefectureName = (typeof prefectureNames)[number];
-type PrefectureNameWithoutSuffix = (typeof prefectureNamesWithoutSuffix)[number];
+type PrefectureNameWithoutSuffix =
+    (typeof prefectureNamesWithoutSuffix)[number];
 export type PrefectureId = (typeof prefectureIds)[number];
 
 export const prefecturalWebsites: { [key in PrefectureId]: string } = {
@@ -215,7 +216,15 @@ export const adjacentPrefectures: { [key in PrefectureId]: PrefectureId[] } = {
     ibaraki: ['fukushima', 'tochigi', 'saitama', 'chiba'],
     tochigi: ['fukushima', 'ibaraki', 'gunma', 'saitama'],
     gunma: ['fukushima', 'tochigi', 'saitama', 'niigata', 'nagano'],
-    saitama: ['ibaraki', 'tochigi', 'gunma', 'chiba', 'tokyo', 'yamanashi', 'nagano'],
+    saitama: [
+        'ibaraki',
+        'tochigi',
+        'gunma',
+        'chiba',
+        'tokyo',
+        'yamanashi',
+        'nagano',
+    ],
     chiba: ['ibaraki', 'saitama', 'tokyo', 'kanagawa'],
     tokyo: ['saitama', 'chiba', 'kanagawa', 'yamanashi'],
     kanagawa: ['chiba', 'tokyo', 'yamanashi', 'shizuoka'],
@@ -224,7 +233,16 @@ export const adjacentPrefectures: { [key in PrefectureId]: PrefectureId[] } = {
     ishikawa: ['toyama', 'fukui', 'gifu'],
     fukui: ['ishikawa', 'gifu', 'shiga', 'kyoto'],
     yamanashi: ['saitama', 'tokyo', 'kanagawa', 'nagano', 'shizuoka'],
-    nagano: ['gunma', 'saitama', 'niigata', 'toyama', 'yamanashi', 'gifu', 'shizuoka', 'aichi'],
+    nagano: [
+        'gunma',
+        'saitama',
+        'niigata',
+        'toyama',
+        'yamanashi',
+        'gifu',
+        'shizuoka',
+        'aichi',
+    ],
     gifu: ['toyama', 'ishikawa', 'fukui', 'nagano', 'aichi', 'mie', 'shiga'],
     shizuoka: ['kanagawa', 'yamanashi', 'nagano', 'aichi'],
     aichi: ['nagano', 'gifu', 'shizuoka', 'mie'],
@@ -265,9 +283,11 @@ export const getPrefectureId = (
     query: PrefectureName | PrefectureNameWithoutSuffix,
 ): PrefectureId => {
     const isWithSuffix = (query: string): query is PrefectureName =>
-        prefectureNames.some((name) => name === query);
-    const isWithoutSuffix = (query: string): query is PrefectureNameWithoutSuffix =>
-        prefectureNamesWithoutSuffix.some((name) => name === query);
+        prefectureNames.some(name => name === query);
+    const isWithoutSuffix = (
+        query: string,
+    ): query is PrefectureNameWithoutSuffix =>
+        prefectureNamesWithoutSuffix.some(name => name === query);
     if (isWithSuffix(query)) {
         return prefectureIds[prefectureNames.indexOf(query)];
     } else if (isWithoutSuffix(query)) {

@@ -316,13 +316,17 @@ const hireiBlockIds = [
 type HireiBlockName = (typeof hireiBlockNames)[number];
 type HireiBlockId = (typeof hireiBlockIds)[number];
 
-export const getHireiBlockName = (hireiBlockId: HireiBlockId): HireiBlockName => {
+export const getHireiBlockName = (
+    hireiBlockId: HireiBlockId,
+): HireiBlockName => {
     const i = hireiBlockIds.indexOf(hireiBlockId);
     if (i === -1) throw new Error('No such hirei block id.');
     return hireiBlockNames[i];
 };
 
-export const getHireiBlockId = (hireiBlockName: HireiBlockName): HireiBlockId => {
+export const getHireiBlockId = (
+    hireiBlockName: HireiBlockName,
+): HireiBlockId => {
     const i = hireiBlockNames.indexOf(hireiBlockName);
     if (i === -1)
         throw new Error(
@@ -331,7 +335,9 @@ export const getHireiBlockId = (hireiBlockName: HireiBlockName): HireiBlockId =>
     return hireiBlockIds[i];
 };
 
-export const getHireiBlockPrefectures = (hireiBlockId: HireiBlockId): PrefectureId[] => {
+export const getHireiBlockPrefectures = (
+    hireiBlockId: HireiBlockId,
+): PrefectureId[] => {
     if (!hireiBlockIds.includes(hireiBlockId)) {
         throw new Error('No such hirei block id.');
     }

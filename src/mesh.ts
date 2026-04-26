@@ -19,7 +19,7 @@ export const coordinateToMeshCode = (
     coordinate: [number, number],
     degree: Degree = 'JIS-3',
 ): string => {
-    let latitude, longitude: number;
+    let latitude: number, longitude: number;
 
     if (
         24 <= coordinate[0] &&
@@ -42,12 +42,14 @@ export const coordinateToMeshCode = (
     const baseLat = latitude * 1.5;
     const baseLon = longitude - 100;
 
-    const firstDegreeMeshCode = +Math.floor(baseLat).toString() + Math.floor(baseLon).toString();
+    const firstDegreeMeshCode =
+        +Math.floor(baseLat).toString() + Math.floor(baseLon).toString();
     if (degree === 'JIS-1') return firstDegreeMeshCode;
 
     const x10MeshCode =
         firstDegreeMeshCode +
-        (+(Math.floor(baseLat * 8) % 8).toString() + (Math.floor(baseLon * 8) % 8).toString());
+        (+(Math.floor(baseLat * 8) % 8).toString() +
+            (Math.floor(baseLon * 8) % 8).toString());
     if (degree === 'JIS-2' || degree === 'JIS-3-x10') {
         return x10MeshCode;
     }
@@ -66,26 +68,33 @@ export const coordinateToMeshCode = (
 
     const halfMeshCode =
         standardMeshCode +
-        (+1 + (Math.floor(baseLat * 8 * 10 * 2) % 2) * 2 + (Math.floor(baseLon * 8 * 10 * 2) % 2));
-    if (degree === 'JIS-3-1/2' || degree === '500m' || degree === '4') return halfMeshCode;
+        (+1 +
+            (Math.floor(baseLat * 8 * 10 * 2) % 2) * 2 +
+            (Math.floor(baseLon * 8 * 10 * 2) % 2));
+    if (degree === 'JIS-3-1/2' || degree === '500m' || degree === '4')
+        return halfMeshCode;
 
     const halfHalfMeshCode =
         halfMeshCode +
         (+1 +
             (Math.floor(baseLat * 8 * 10 * 2 * 2) % 2) * 2 +
             (Math.floor(baseLon * 8 * 10 * 2 * 2) % 2));
-    if (degree === 'JIS-3-1/4' || degree === '250m' || degree === '5') return halfHalfMeshCode;
+    if (degree === 'JIS-3-1/4' || degree === '250m' || degree === '5')
+        return halfHalfMeshCode;
 
     const halfHalfHalfMeshCode =
         halfHalfMeshCode +
         (+1 +
             (Math.floor(baseLat * 8 * 10 * 2 * 2 * 2) % 2) * 2 +
             (Math.floor(baseLon * 8 * 10 * 2 * 2 * 2) % 2));
-    if (degree === 'JIS-3-1/8' || degree === '125m') return halfHalfHalfMeshCode;
+    if (degree === 'JIS-3-1/8' || degree === '125m')
+        return halfHalfHalfMeshCode;
 
     const x5MeshCode =
         x10MeshCode +
-        (+1 + (Math.floor(baseLat * 8 * 2) % 2) * 2 + (Math.floor(baseLon * 8 * 2) % 2));
+        (+1 +
+            (Math.floor(baseLat * 8 * 2) % 2) * 2 +
+            (Math.floor(baseLon * 8 * 2) % 2));
     if (degree === 'JIS-3-x5') return x5MeshCode;
 
     const x2MeshCode =
