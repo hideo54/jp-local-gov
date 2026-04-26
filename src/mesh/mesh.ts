@@ -1,4 +1,9 @@
-type Degree =
+const minimumLatitude = 24;
+const maximumLatitude = 46;
+const minimumLongitude = 122;
+const maximumLongitude = 149;
+
+export type MeshResolution =
     | 'JIS-1' // JISX0410:2002 により定められている「第1次地域区画」(約 80 km)
     | 'JIS-2' // 「第2次地域区画」(約 10 km)
     | 'JIS-3-x10' // 統合地域メッシュ「10倍地域メッシュ」(約 10 km)。'JIS-2' と同様。
@@ -17,22 +22,22 @@ type Degree =
 
 export const coordinateToMeshCode = (
     coordinate: [number, number],
-    degree: Degree = 'JIS-3',
+    resolution: MeshResolution = 'JIS-3',
 ): string => {
     let latitude: number, longitude: number;
 
     if (
-        24 <= coordinate[0] &&
-        coordinate[0] <= 46 &&
-        122 <= coordinate[1] &&
-        coordinate[1] <= 149
+        minimumLatitude <= coordinate[0] &&
+        coordinate[0] <= maximumLatitude &&
+        minimumLongitude <= coordinate[1] &&
+        coordinate[1] <= maximumLongitude
     ) {
         [latitude, longitude] = coordinate;
     } else if (
-        24 <= coordinate[1] &&
-        coordinate[1] <= 46 &&
-        122 <= coordinate[0] &&
-        coordinate[0] <= 149
+        minimumLatitude <= coordinate[1] &&
+        coordinate[1] <= maximumLatitude &&
+        minimumLongitude <= coordinate[0] &&
+        coordinate[0] <= maximumLongitude
     ) {
         [longitude, latitude] = coordinate;
     } else {
@@ -44,13 +49,13 @@ export const coordinateToMeshCode = (
 
     const firstDegreeMeshCode =
         +Math.floor(baseLat).toString() + Math.floor(baseLon).toString();
-    if (degree === 'JIS-1') return firstDegreeMeshCode;
+    if (resolution === 'JIS-1') return firstDegreeMeshCode;
 
     const x10MeshCode =
         firstDegreeMeshCode +
         (+(Math.floor(baseLat * 8) % 8).toString() +
             (Math.floor(baseLon * 8) % 8).toString());
-    if (degree === 'JIS-2' || degree === 'JIS-3-x10') {
+    if (resolution === 'JIS-2' || resolution === 'JIS-3-x10') {
         return x10MeshCode;
     }
 
@@ -58,20 +63,24 @@ export const coordinateToMeshCode = (
         x10MeshCode +
         (+(Math.floor(baseLat * 8 * 10) % 10).toString() +
             (Math.floor(baseLon * 8 * 10) % 10).toString());
-    if (degree === 'JIS-3') return standardMeshCode;
+    if (resolution === 'JIS-3') return standardMeshCode;
 
     const tenthMeshCode =
         standardMeshCode +
         (+(Math.floor(baseLat * 8 * 10 * 10) % 10).toString() +
             (Math.floor(baseLon * 8 * 10 * 10) % 10).toString());
-    if (degree === '100m') return tenthMeshCode;
+    if (resolution === '100m') return tenthMeshCode;
 
     const halfMeshCode =
         standardMeshCode +
         (+1 +
             (Math.floor(baseLat * 8 * 10 * 2) % 2) * 2 +
             (Math.floor(baseLon * 8 * 10 * 2) % 2));
-    if (degree === 'JIS-3-1/2' || degree === '500m' || degree === '4')
+    if (
+        resolution === 'JIS-3-1/2' ||
+        resolution === '500m' ||
+        resolution === '4'
+    )
         return halfMeshCode;
 
     const halfHalfMeshCode =
@@ -79,7 +88,11 @@ export const coordinateToMeshCode = (
         (+1 +
             (Math.floor(baseLat * 8 * 10 * 2 * 2) % 2) * 2 +
             (Math.floor(baseLon * 8 * 10 * 2 * 2) % 2));
-    if (degree === 'JIS-3-1/4' || degree === '250m' || degree === '5')
+    if (
+        resolution === 'JIS-3-1/4' ||
+        resolution === '250m' ||
+        resolution === '5'
+    )
         return halfHalfMeshCode;
 
     const halfHalfHalfMeshCode =
@@ -87,7 +100,7 @@ export const coordinateToMeshCode = (
         (+1 +
             (Math.floor(baseLat * 8 * 10 * 2 * 2 * 2) % 2) * 2 +
             (Math.floor(baseLon * 8 * 10 * 2 * 2 * 2) % 2));
-    if (degree === 'JIS-3-1/8' || degree === '125m')
+    if (resolution === 'JIS-3-1/8' || resolution === '125m')
         return halfHalfHalfMeshCode;
 
     const x5MeshCode =
@@ -95,14 +108,14 @@ export const coordinateToMeshCode = (
         (+1 +
             (Math.floor(baseLat * 8 * 2) % 2) * 2 +
             (Math.floor(baseLon * 8 * 2) % 2));
-    if (degree === 'JIS-3-x5') return x5MeshCode;
+    if (resolution === 'JIS-3-x5') return x5MeshCode;
 
     const x2MeshCode =
         x10MeshCode +
         (+(Math.floor(baseLat * 8 * 8) % 8).toString() +
             (Math.floor(baseLon * 8 * 8) % 8).toString() +
             '5');
-    if (degree === 'JIS-3-x2') return x2MeshCode;
+    if (resolution === 'JIS-3-x2') return x2MeshCode;
 
     const defaultResult = standardMeshCode;
     return defaultResult;
