@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
 import * as mesh from './mesh.js';
-import * as prefecture from './prefecture.js';
 import * as senkyo from './senkyo.js';
 
 describe('coordinateToMeshCode', () => {
@@ -39,19 +38,6 @@ describe('coordinateToMeshCode', () => {
         expect(
             mesh.coordinateToMeshCode([35.664742, 139.403086], '100m'),
         ).toEqual('5339339272');
-    });
-});
-
-describe('getPrefectureName', () => {
-    it('Returns correct name', () => {
-        expect(prefecture.getPrefectureName('osaka')).toEqual('大阪府');
-    });
-});
-
-describe('getPrefectureId', () => {
-    it('Returns correct id', () => {
-        expect(prefecture.getPrefectureId('大阪府')).toEqual('osaka');
-        expect(prefecture.getPrefectureId('京都')).toEqual('kyoto');
     });
 });
 

@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import type { PrefectureId } from './prefecture.js';
+import type { PrefectureId } from './prefecture/index.js';
 
 // 1994年3月4日施行
 export const shuDistrictCounts1994: { [key in PrefectureId]: number } = {
