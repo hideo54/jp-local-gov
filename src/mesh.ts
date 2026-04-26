@@ -104,6 +104,6 @@ export const coordinateToMeshCode = (
             '5');
     if (degree === 'JIS-3-x2') return x2MeshCode;
 
-    const defaultResulut = standardMeshCode;
-    return defaultResulut;
+    const defaultResult = standardMeshCode;
+    return defaultResult;
 };
