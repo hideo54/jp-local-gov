@@ -1,6 +1,6 @@
 import type { Prefecture } from '../types.js';
 
-export const prefectures: Prefecture[] = [
+export const prefectures: readonly Prefecture[] = [
     {
         code: '010006',
         type: 'prefecture',

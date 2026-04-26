@@ -1,6 +1,6 @@
 import type { Municipality } from '../types.js';
 
-export const municipalities: Municipality[] = [
+export const municipalities: readonly Municipality[] = [
     {
         code: '011002',
         type: 'municipality',

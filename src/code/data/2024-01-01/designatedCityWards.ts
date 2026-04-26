@@ -1,6 +1,6 @@
 import type { DesignatedCityWard } from '../types.js';
 
-export const designatedCityWards: DesignatedCityWard[] = [
+export const designatedCityWards: readonly DesignatedCityWard[] = [
     {
         code: '011011',
         type: 'designated-city-ward',
