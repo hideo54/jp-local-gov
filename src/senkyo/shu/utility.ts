@@ -45,32 +45,22 @@ export const getShuDistrictCounts = (
     // 第49回: 2021年10月14日解散 10月31日投開票
 };
 
-export const getHireiBlockName = (
-    hireiBlockId: HireiBlockId,
-): HireiBlockName => {
-    const i = hireiBlockIds.indexOf(hireiBlockId);
-    if (i === -1) throw new Error('No such hirei block id.');
+export const getHireiBlockName = (id: string): HireiBlockName => {
+    const i = (hireiBlockIds as readonly string[]).indexOf(id);
+    if (i === -1) throw new Error(`Item not found: ${id}`);
     return hireiBlockNames[i];
 };
 
-export const getHireiBlockId = (
-    hireiBlockName: HireiBlockName,
-): HireiBlockId => {
-    const i = hireiBlockNames.indexOf(hireiBlockName);
-    if (i === -1)
-        throw new Error(
-            'No such hirei block name. Do not include words like "比例", "ブロック" etc.',
-        );
+export const getHireiBlockId = (name: string): HireiBlockId => {
+    const i = (hireiBlockNames as readonly string[]).indexOf(name);
+    if (i === -1) throw new Error(`Item not found: ${name}`);
     return hireiBlockIds[i];
 };
 
-export const getHireiBlockPrefectures = (
-    hireiBlockId: HireiBlockId,
-): PrefectureId[] => {
-    if (!hireiBlockIds.includes(hireiBlockId)) {
-        throw new Error('No such hirei block id.');
-    }
-    return hireiBlockPrefectures[hireiBlockId];
+export const getHireiBlockPrefectures = (id: string): PrefectureId[] => {
+    const i = (hireiBlockIds as readonly string[]).indexOf(id);
+    if (i === -1) throw new Error(`Item not found: ${id}`);
+    return hireiBlockPrefectures[hireiBlockIds[i]];
 };
 
 export const getShuHireiBlockSeatCounts = (
