@@ -86,6 +86,9 @@ export const getShuHireiBlockSeatCounts = (
     // 第47回: 2014年11月21日解散 12月14日投開票
     if (day.isBefore('2017-09-28')) return hireiBlockSeatCounts2002;
     // 第48回: 2017年 9月28日解散 10月22日投開票
-    return hireiBlockSeatCounts2017;
+    if (day.isBefore('2021-10-14')) return hireiBlockSeatCounts2017;
     // 第49回: 2021年10月14日解散 10月31日投開票
+    // 第50回: 2024年10月9日解散 10月27日投開票
+    // 第51回: 2026年1月23日解散 2月8日投開票
+    return hireiBlockSeatCounts2022;
 };
