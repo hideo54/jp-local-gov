@@ -11,9 +11,9 @@ export { shuDistrictCounts2013 } from './senkyoku-seats/2013-07-28.js';
 export { shuDistrictCounts2017 } from './senkyoku-seats/2017-07-16.js';
 export { shuDistrictCounts2022 } from './senkyoku-seats/2022-12-28.js';
 export {
-    getHireiBlockId,
-    getHireiBlockName,
-    getHireiBlockPrefectures,
     getShuDistrictCounts,
+    getShuHireiBlockId,
+    getShuHireiBlockName,
+    getShuHireiBlockPrefectures,
     getShuHireiBlockSeatCounts,
 } from './utility.js';

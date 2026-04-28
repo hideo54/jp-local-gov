@@ -14,6 +14,24 @@ import { shuDistrictCounts2013 } from './senkyoku-seats/2013-07-28.js';
 import { shuDistrictCounts2017 } from './senkyoku-seats/2017-07-16.js';
 import { shuDistrictCounts2022 } from './senkyoku-seats/2022-12-28.js';
 
+export const getShuHireiBlockName = (id: string): HireiBlockName =>
+    getOne(
+        hireiBlocks.filter(b => b.id === id),
+        id,
+    ).name;
+
+export const getShuHireiBlockId = (name: string): HireiBlockId =>
+    getOne(
+        hireiBlocks.filter(b => b.name === name),
+        name,
+    ).id;
+
+export const getShuHireiBlockPrefectures = (id: string): PrefectureId[] =>
+    getOne(
+        hireiBlocks.filter(b => b.id === id),
+        id,
+    ).prefectures;
+
 export const getShuDistrictCounts = (
     date: string,
     sort: 'legally' | 'by-vote-day' = 'by-vote-day',
@@ -40,24 +58,6 @@ export const getShuDistrictCounts = (
     return shuDistrictCounts2017;
     // 第49回: 2021年10月14日解散 10月31日投開票
 };
-
-export const getHireiBlockName = (id: string): HireiBlockName =>
-    getOne(
-        hireiBlocks.filter(b => b.id === id),
-        id,
-    ).name;
-
-export const getHireiBlockId = (name: string): HireiBlockId =>
-    getOne(
-        hireiBlocks.filter(b => b.name === name),
-        name,
-    ).id;
-
-export const getHireiBlockPrefectures = (id: string): PrefectureId[] =>
-    getOne(
-        hireiBlocks.filter(b => b.id === id),
-        id,
-    ).prefectures;
 
 export const getShuHireiBlockSeatCounts = (
     date: string,
