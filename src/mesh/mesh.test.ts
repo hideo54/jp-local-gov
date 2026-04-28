@@ -35,4 +35,9 @@ describe('coordinateToMeshCode', () => {
             '5339339272',
         );
     });
+    it('throws for coordinate outside Japan', () => {
+        expect(() => coordinateToMeshCode([0, 0])).toThrow(
+            'Given coordinate is outside Japan.',
+        );
+    });
 });
