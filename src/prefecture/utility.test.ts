@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getPrefectureInfoById, getPrefectureInfoByName } from './lookup.js';
+import { getPrefectureInfoById, getPrefectureInfoByName } from './utility.js';
 
 describe('getPrefectureInfoById', () => {
     it('returns prefecture for valid id', () => {
