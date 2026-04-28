@@ -1,12 +1,8 @@
 import dayjs from 'dayjs';
+import { getOne } from '../../lib.js';
 import type { PrefectureId } from '../../prefecture/index.js';
-import {
-    type HireiBlockId,
-    type HireiBlockName,
-    hireiBlockIds,
-    hireiBlockNames,
-    hireiBlockPrefectures,
-} from './hirei-block.js';
+import type { HireiBlockId, HireiBlockName } from './hirei-block.js';
+import { hireiBlocks } from './hirei-block.js';
 import { hireiBlockSeatCounts1994 } from './hirei-seats/1994-03-04.js';
 import { hireiBlockSeatCounts2000 } from './hirei-seats/2000-02-09.js';
 import { hireiBlockSeatCounts2002 } from './hirei-seats/2002-08-31.js';
@@ -45,23 +41,23 @@ export const getShuDistrictCounts = (
     // 第49回: 2021年10月14日解散 10月31日投開票
 };
 
-export const getHireiBlockName = (id: string): HireiBlockName => {
-    const i = (hireiBlockIds as readonly string[]).indexOf(id);
-    if (i === -1) throw new Error(`Item not found: ${id}`);
-    return hireiBlockNames[i];
-};
+export const getHireiBlockName = (id: string): HireiBlockName =>
+    getOne(
+        hireiBlocks.filter(b => b.id === id),
+        id,
+    ).name;
 
-export const getHireiBlockId = (name: string): HireiBlockId => {
-    const i = (hireiBlockNames as readonly string[]).indexOf(name);
-    if (i === -1) throw new Error(`Item not found: ${name}`);
-    return hireiBlockIds[i];
-};
+export const getHireiBlockId = (name: string): HireiBlockId =>
+    getOne(
+        hireiBlocks.filter(b => b.name === name),
+        name,
+    ).id;
 
-export const getHireiBlockPrefectures = (id: string): PrefectureId[] => {
-    const i = (hireiBlockIds as readonly string[]).indexOf(id);
-    if (i === -1) throw new Error(`Item not found: ${id}`);
-    return hireiBlockPrefectures[hireiBlockIds[i]];
-};
+export const getHireiBlockPrefectures = (id: string): PrefectureId[] =>
+    getOne(
+        hireiBlocks.filter(b => b.id === id),
+        id,
+    ).prefectures;
 
 export const getShuHireiBlockSeatCounts = (
     date: string,

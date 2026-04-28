@@ -1,9 +1,5 @@
 export type { HireiBlockId, HireiBlockName } from './hirei-block.js';
-export {
-    hireiBlockIds,
-    hireiBlockNames,
-    hireiBlockPrefectures,
-} from './hirei-block.js';
+export { hireiBlocks } from './hirei-block.js';
 export { hireiBlockSeatCounts1994 } from './hirei-seats/1994-03-04.js';
 export { hireiBlockSeatCounts2000 } from './hirei-seats/2000-02-09.js';
 export { hireiBlockSeatCounts2002 } from './hirei-seats/2002-08-31.js';

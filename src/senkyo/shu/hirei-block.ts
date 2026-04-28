@@ -1,50 +1,98 @@
 import type { PrefectureId } from '../../prefecture/index.js';
 
-export const hireiBlockIds = [
-    'hokkaido',
-    'tohoku',
-    'kitakanto',
-    'minamikanto',
-    'tokyo',
-    'hokurikushinetsu',
-    'tokai',
-    'kinki',
-    'chugoku',
-    'shikoku',
-    'kyushu',
-] as const;
+export type HireiBlockId =
+    | 'hokkaido'
+    | 'tohoku'
+    | 'kitakanto'
+    | 'minamikanto'
+    | 'tokyo'
+    | 'hokurikushinetsu'
+    | 'tokai'
+    | 'kinki'
+    | 'chugoku'
+    | 'shikoku'
+    | 'kyushu';
 
-export const hireiBlockNames = [
-    '北海道',
-    '東北',
-    '北関東',
-    '南関東',
-    '東京',
-    '北陸信越',
-    '東海',
-    '近畿',
-    '中国',
-    '四国',
-    '九州',
-] as const;
+export type HireiBlockName =
+    | '北海道'
+    | '東北'
+    | '北関東'
+    | '南関東'
+    | '東京'
+    | '北陸信越'
+    | '東海'
+    | '近畿'
+    | '中国'
+    | '四国'
+    | '九州';
 
-export type HireiBlockId = (typeof hireiBlockIds)[number];
-export type HireiBlockName = (typeof hireiBlockNames)[number];
+export interface HireiBlock {
+    id: HireiBlockId;
+    name: HireiBlockName;
+    prefectures: PrefectureId[];
+}
 
 // 公職選挙法 別表2 に拠る。
-export const hireiBlockPrefectures: { [key in HireiBlockId]: PrefectureId[] } =
+export const hireiBlocks: readonly HireiBlock[] = [
+    { id: 'hokkaido', name: '北海道', prefectures: ['hokkaido'] },
     {
-        hokkaido: ['hokkaido'],
-        tohoku: ['aomori', 'iwate', 'miyagi', 'akita', 'yamagata', 'fukushima'],
-        kitakanto: ['ibaraki', 'tochigi', 'gunma', 'saitama'],
-        minamikanto: ['chiba', 'kanagawa', 'yamanashi'],
-        tokyo: ['tokyo'],
-        hokurikushinetsu: ['niigata', 'toyama', 'ishikawa', 'fukui', 'nagano'],
-        tokai: ['gifu', 'shizuoka', 'aichi', 'mie'],
-        kinki: ['shiga', 'kyoto', 'osaka', 'hyogo', 'nara', 'wakayama'],
-        chugoku: ['tottori', 'shimane', 'okayama', 'hiroshima', 'yamaguchi'],
-        shikoku: ['tokushima', 'kagawa', 'ehime', 'kochi'],
-        kyushu: [
+        id: 'tohoku',
+        name: '東北',
+        prefectures: [
+            'aomori',
+            'iwate',
+            'miyagi',
+            'akita',
+            'yamagata',
+            'fukushima',
+        ],
+    },
+    {
+        id: 'kitakanto',
+        name: '北関東',
+        prefectures: ['ibaraki', 'tochigi', 'gunma', 'saitama'],
+    },
+    {
+        id: 'minamikanto',
+        name: '南関東',
+        prefectures: ['chiba', 'kanagawa', 'yamanashi'],
+    },
+    { id: 'tokyo', name: '東京', prefectures: ['tokyo'] },
+    {
+        id: 'hokurikushinetsu',
+        name: '北陸信越',
+        prefectures: ['niigata', 'toyama', 'ishikawa', 'fukui', 'nagano'],
+    },
+    {
+        id: 'tokai',
+        name: '東海',
+        prefectures: ['gifu', 'shizuoka', 'aichi', 'mie'],
+    },
+    {
+        id: 'kinki',
+        name: '近畿',
+        prefectures: ['shiga', 'kyoto', 'osaka', 'hyogo', 'nara', 'wakayama'],
+    },
+    {
+        id: 'chugoku',
+        name: '中国',
+        prefectures: [
+            'tottori',
+            'shimane',
+            'okayama',
+            'hiroshima',
+            'yamaguchi',
+        ],
+    },
+    {
+        id: 'shikoku',
+        name: '四国',
+        prefectures: ['tokushima', 'kagawa', 'ehime', 'kochi'],
+    },
+    {
+        id: 'kyushu',
+        name: '九州',
+        prefectures: [
             'fukuoka',
             'saga',
             'nagasaki',
@@ -54,4 +102,5 @@ export const hireiBlockPrefectures: { [key in HireiBlockId]: PrefectureId[] } =
             'kagoshima',
             'okinawa',
         ],
-    };
+    },
+];
