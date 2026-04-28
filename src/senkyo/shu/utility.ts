@@ -1,7 +1,11 @@
 import dayjs from 'dayjs';
 import { getOne } from '../../lib.js';
 import type { PrefectureId } from '../../prefecture/index.js';
-import type { HireiBlockId, HireiBlockName } from './hirei-block.js';
+import type {
+    HireiBlock,
+    HireiBlockId,
+    HireiBlockName,
+} from './hirei-block.js';
 import { hireiBlocks } from './hirei-block.js';
 import { hireiBlockSeatCounts1994 } from './hirei-seats/1994-03-04.js';
 import { hireiBlockSeatCounts2000 } from './hirei-seats/2000-02-09.js';
@@ -31,6 +35,14 @@ export const getShuHireiBlockPrefectures = (id: string): PrefectureId[] =>
         hireiBlocks.filter(b => b.id === id),
         id,
     ).prefectures;
+
+export const getShuHireiBlockForPrefecture = (
+    prefectureId: string,
+): HireiBlock =>
+    getOne(
+        hireiBlocks.filter(b => b.prefectures.some(p => p === prefectureId)),
+        prefectureId,
+    );
 
 export const getShuDistrictCounts = (
     date: string,
