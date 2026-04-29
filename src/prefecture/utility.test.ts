@@ -1,9 +1,22 @@
 import { describe, expect, it } from 'vitest';
+import type { PrefectureId } from './types.js';
 import {
+    comparePrefectureIds,
     getPrefectureInfoById,
     getPrefectureInfoByName,
     isPrefectureId,
 } from './utility.js';
+
+describe('comparePrefectureIds', () => {
+    it('sorts prefectures in defined order', () => {
+        const unsorted: PrefectureId[] = ['okinawa', 'hokkaido', 'tokyo'];
+        expect(unsorted.sort(comparePrefectureIds)).toStrictEqual([
+            'hokkaido',
+            'tokyo',
+            'okinawa',
+        ]);
+    });
+});
 
 describe('isPrefectureId', () => {
     it('returns true for valid id', () => {
