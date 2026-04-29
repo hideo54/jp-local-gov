@@ -10,14 +10,6 @@
         },
         "enabled": true
     },
-    "css": {
-        "formatter": {
-            "quoteStyle": "single"
-        },
-        "parser": {
-            "tailwindDirectives": true
-        }
-    },
     "files": {
         "ignoreUnknown": false
     },
@@ -29,7 +21,6 @@
     "javascript": {
         "formatter": {
             "arrowParentheses": "asNeeded",
-            "jsxQuoteStyle": "single",
             "quoteStyle": "single"
         }
     },
@@ -38,16 +29,6 @@
         "rules": {
             "correctness": {
                 "noUnusedImports": "on"
-            },
-            "nursery": {
-                "useSortedClasses": {
-                    "fix": "safe",
-                    "level": "warn",
-                    "options": {}
-                }
-            },
-            "performance": {
-                "noImgElement": "off"
             },
             "recommended": true,
             "style": {
@@ -61,8 +42,7 @@
                 "useTemplate": "on"
             },
             "suspicious": {
-                "noArrayIndexKey": "off",
-                "noUnknownAtRules": "off"
+                "noArrayIndexKey": "off"
             }
         }
     },
