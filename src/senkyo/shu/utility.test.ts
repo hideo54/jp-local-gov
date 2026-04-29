@@ -6,7 +6,17 @@ import {
     getShuHireiBlockName,
     getShuHireiBlockPrefectures,
     getShuHireiBlockSeatCounts,
+    isShuHireiBlockId,
 } from './utility.js';
+
+describe('isShuHireiBlockId', () => {
+    it('returns true for valid id', () => {
+        expect(isShuHireiBlockId('kinki')).toBe(true);
+    });
+    it('returns false for unknown id', () => {
+        expect(isShuHireiBlockId('unknown')).toBe(false);
+    });
+});
 
 describe('getShuDistrictCounts', () => {
     it('returns correct counts for a known election date', () => {

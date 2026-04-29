@@ -9,6 +9,9 @@ import type {
 } from './hirei-block.js';
 import { hireiBlocks } from './hirei-block.js';
 
+export const isShuHireiBlockId = (s: string): s is HireiBlockId =>
+    hireiBlocks.some(b => b.id === s);
+
 export const getShuHireiBlockName = (id: string): HireiBlockName =>
     getOne(
         hireiBlocks.filter(b => b.id === id),

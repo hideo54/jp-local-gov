@@ -23,4 +23,5 @@ export {
     getShuHireiBlockName,
     getShuHireiBlockPrefectures,
     getShuHireiBlockSeatCounts,
+    isShuHireiBlockId,
 } from './utility.js';
