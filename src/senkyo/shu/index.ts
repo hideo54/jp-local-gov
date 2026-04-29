@@ -1,3 +1,5 @@
+export type { ShuElection } from './elections.js';
+export { shuElections } from './elections.js';
 export type {
     HireiBlock,
     HireiBlockId,
