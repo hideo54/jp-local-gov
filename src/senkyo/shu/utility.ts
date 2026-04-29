@@ -3,38 +3,38 @@ import type { PrefectureId } from '../../prefecture/index.js';
 import type { ShuElection } from './elections.js';
 import { shuElections } from './elections.js';
 import type {
-    HireiBlock,
-    HireiBlockId,
-    HireiBlockName,
+    ShuHireiBlock,
+    ShuHireiBlockId,
+    ShuHireiBlockName,
 } from './hirei-block.js';
-import { hireiBlocks, shuHireiBlockIds } from './hirei-block.js';
+import { shuHireiBlockIds, shuHireiBlocks } from './hirei-block.js';
 
-export const isShuHireiBlockId = (s: string): s is HireiBlockId =>
+export const isShuHireiBlockId = (s: string): s is ShuHireiBlockId =>
     shuHireiBlockIds.some(id => id === s);
 
-export const getShuHireiBlockName = (id: string): HireiBlockName =>
+export const getShuHireiBlockName = (id: string): ShuHireiBlockName =>
     getOne(
-        hireiBlocks.filter(b => b.id === id),
+        shuHireiBlocks.filter(b => b.id === id),
         id,
     ).name;
 
-export const getShuHireiBlockId = (name: string): HireiBlockId =>
+export const getShuHireiBlockId = (name: string): ShuHireiBlockId =>
     getOne(
-        hireiBlocks.filter(b => b.name === name),
+        shuHireiBlocks.filter(b => b.name === name),
         name,
     ).id;
 
 export const getShuHireiBlockPrefectures = (id: string): PrefectureId[] =>
     getOne(
-        hireiBlocks.filter(b => b.id === id),
+        shuHireiBlocks.filter(b => b.id === id),
         id,
     ).prefectures;
 
 export const getShuHireiBlockForPrefecture = (
     prefectureId: string,
-): HireiBlock =>
+): ShuHireiBlock =>
     getOne(
-        hireiBlocks.filter(b => b.prefectures.some(p => p === prefectureId)),
+        shuHireiBlocks.filter(b => b.prefectures.some(p => p === prefectureId)),
         prefectureId,
     );
 

@@ -14,9 +14,9 @@ export const shuHireiBlockIds = [
     'kyushu',
 ] as const;
 
-export type HireiBlockId = (typeof shuHireiBlockIds)[number];
+export type ShuHireiBlockId = (typeof shuHireiBlockIds)[number];
 
-export type HireiBlockName =
+export type ShuHireiBlockName =
     | '北海道'
     | '東北'
     | '北関東'
@@ -29,14 +29,14 @@ export type HireiBlockName =
     | '四国'
     | '九州';
 
-export interface HireiBlock {
-    id: HireiBlockId;
-    name: HireiBlockName;
+export interface ShuHireiBlock {
+    id: ShuHireiBlockId;
+    name: ShuHireiBlockName;
     prefectures: PrefectureId[];
 }
 
 // 公職選挙法 別表2 に拠る。
-export const hireiBlocks: readonly HireiBlock[] = [
+export const shuHireiBlocks: readonly ShuHireiBlock[] = [
     { id: 'hokkaido', name: '北海道', prefectures: ['hokkaido'] },
     {
         id: 'tohoku',
