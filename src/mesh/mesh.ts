@@ -13,12 +13,15 @@ export type MeshResolution =
     | 'JIS-3-1/2' // 分割地域メッシュ「2分の1地域メッシュ」(約 500 m)
     | 'JIS-3-1/4' // 分割地域メッシュ「4分の1地域メッシュ」(約 250 m)
     | 'JIS-3-1/8' // 分割地域メッシュ「8分の1地域メッシュ」(約 125 m)
-    | '4'
-    | '5'
-    | '500m' // 'JIS-3-1/2' と同等。国土数値情報などが使用。
-    | '250m' // 'JIS-3-1/4' と同等
-    | '125m' // 'JIS-3-1/8' と同等
-    | '100m'; // 国土数値情報の土地利用データなどが使用
+    | '1' // 1次メッシュコード
+    | '2' // 2次メッシュコード
+    | '3' // 3次メッシュコード
+    | '4' // 4次メッシュコード
+    | '5' // 5次メッシュコード
+    | '500m'
+    | '250m'
+    | '125m'
+    | '100m';
 
 export const coordinateToMeshCode = (
     coordinate: [number, number],
@@ -49,13 +52,19 @@ export const coordinateToMeshCode = (
 
     const firstDegreeMeshCode =
         +Math.floor(baseLat).toString() + Math.floor(baseLon).toString();
-    if (resolution === 'JIS-1') return firstDegreeMeshCode;
+    if (resolution === 'JIS-1' || resolution === '1') {
+        return firstDegreeMeshCode;
+    }
 
     const x10MeshCode =
         firstDegreeMeshCode +
         (+(Math.floor(baseLat * 8) % 8).toString() +
             (Math.floor(baseLon * 8) % 8).toString());
-    if (resolution === 'JIS-2' || resolution === 'JIS-3-x10') {
+    if (
+        resolution === 'JIS-2' ||
+        resolution === 'JIS-3-x10' ||
+        resolution === '2'
+    ) {
         return x10MeshCode;
     }
 
@@ -63,7 +72,7 @@ export const coordinateToMeshCode = (
         x10MeshCode +
         (+(Math.floor(baseLat * 8 * 10) % 10).toString() +
             (Math.floor(baseLon * 8 * 10) % 10).toString());
-    if (resolution === 'JIS-3') return standardMeshCode;
+    if (resolution === 'JIS-3' || resolution === '3') return standardMeshCode;
 
     const tenthMeshCode =
         standardMeshCode +
