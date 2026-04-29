@@ -18,6 +18,9 @@ export type MeshResolution =
     | '3' // 3次メッシュコード
     | '4' // 4次メッシュコード
     | '5' // 5次メッシュコード
+    | '80km'
+    | '10km'
+    | '1km'
     | '500m'
     | '250m'
     | '125m'
@@ -52,7 +55,7 @@ export const coordinateToMeshCode = (
 
     const firstDegreeMeshCode =
         +Math.floor(baseLat).toString() + Math.floor(baseLon).toString();
-    if (resolution === 'JIS-1' || resolution === '1') {
+    if (resolution === 'JIS-1' || resolution === '1' || resolution === '80km') {
         return firstDegreeMeshCode;
     }
 
@@ -63,7 +66,8 @@ export const coordinateToMeshCode = (
     if (
         resolution === 'JIS-2' ||
         resolution === 'JIS-3-x10' ||
-        resolution === '2'
+        resolution === '2' ||
+        resolution === '10km'
     ) {
         return x10MeshCode;
     }
@@ -72,7 +76,9 @@ export const coordinateToMeshCode = (
         x10MeshCode +
         (+(Math.floor(baseLat * 8 * 10) % 10).toString() +
             (Math.floor(baseLon * 8 * 10) % 10).toString());
-    if (resolution === 'JIS-3' || resolution === '3') return standardMeshCode;
+    if (resolution === 'JIS-3' || resolution === '3' || resolution === '1km') {
+        return standardMeshCode;
+    }
 
     const tenthMeshCode =
         standardMeshCode +
