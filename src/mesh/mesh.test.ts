@@ -3,16 +3,27 @@ import { coordinateToMeshCode } from './mesh.js';
 
 describe('coordinateToMeshCode', () => {
     it('Returns correct mesh code', () => {
+        const sampleCoordinate: [number, number] = [
+            35.67548558730212, 139.74258942903984,
+        ];
+
         // https://www.arcgis.com/apps/instant/lookup/index.html?appid=ec8abf80f76c4417b01561e303ed2d32
-        expect(
-            coordinateToMeshCode([35.67548558730212, 139.74258942903984], '4'),
-        ).toEqual('533945191');
+        // あらゆるレベルに対応
+        expect(coordinateToMeshCode(sampleCoordinate, 'JIS-1')).toEqual('5339');
+        expect(coordinateToMeshCode(sampleCoordinate, 'JIS-2')).toEqual(
+            '533945',
+        );
+        expect(coordinateToMeshCode(sampleCoordinate, 'JIS-3')).toEqual(
+            '53394519',
+        );
+        expect(coordinateToMeshCode(sampleCoordinate, '4')).toEqual(
+            '533945191',
+        );
+
+        // 緯度経度逆でも OK
         expect(
             coordinateToMeshCode(
-                [
-                    // 緯度経度逆でも OK
-                    139.74258942903984, 35.67548558730212,
-                ],
+                sampleCoordinate.reverse() as [number, number],
                 '4',
             ),
         ).toEqual('533945191');
@@ -33,6 +44,14 @@ describe('coordinateToMeshCode', () => {
         // https://home.csis.u-tokyo.ac.jp/~nishizawa/teikyo/chiiki_mesh.pdf
         expect(coordinateToMeshCode([35.664742, 139.403086], '100m')).toEqual(
             '5339339272',
+        );
+
+        // https://www.inventory.ikimono.metro.tokyo.lg.jp/search?occurrence_id=01hya6jxr4byxvtddayaz3nck9
+        expect(coordinateToMeshCode(sampleCoordinate, '1km')).toEqual(
+            '53394519',
+        );
+        expect(coordinateToMeshCode(sampleCoordinate, '5km')).toEqual(
+            '5339452',
         );
     });
     it('throws for coordinate outside Japan', () => {
