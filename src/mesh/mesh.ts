@@ -30,7 +30,7 @@ export type MeshResolution =
 
 export const coordinateToMeshCode = (
     coordinate: [number, number],
-    resolution: MeshResolution = 'JIS-3',
+    resolution: MeshResolution,
 ): string => {
     let latitude: number, longitude: number;
 
@@ -134,6 +134,6 @@ export const coordinateToMeshCode = (
             '5');
     if (resolution === 'JIS-3-x2' || resolution === '2km') return x2MeshCode;
 
-    const defaultResult = standardMeshCode;
-    return defaultResult;
+    const _exhaustiveCheck: never = resolution;
+    return _exhaustiveCheck;
 };
