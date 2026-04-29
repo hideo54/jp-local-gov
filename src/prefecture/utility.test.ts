@@ -1,5 +1,18 @@
 import { describe, expect, it } from 'vitest';
-import { getPrefectureInfoById, getPrefectureInfoByName } from './utility.js';
+import {
+    getPrefectureInfoById,
+    getPrefectureInfoByName,
+    isPrefectureId,
+} from './utility.js';
+
+describe('isPrefectureId', () => {
+    it('returns true for valid id', () => {
+        expect(isPrefectureId('osaka')).toBe(true);
+    });
+    it('returns false for unknown id', () => {
+        expect(isPrefectureId('unknown')).toBe(false);
+    });
+});
 
 describe('getPrefectureInfoById', () => {
     it('returns prefecture for valid id', () => {

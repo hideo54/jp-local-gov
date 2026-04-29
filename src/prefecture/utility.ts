@@ -1,6 +1,9 @@
 import { getOne } from '../lib.js';
 import { prefectureInfos } from './data.js';
-import type { PrefectureInfo } from './types.js';
+import type { PrefectureId, PrefectureInfo } from './types.js';
+
+export const isPrefectureId = (s: string): s is PrefectureId =>
+    prefectureInfos.some(p => p.id === s);
 
 export const getPrefectureInfoById = (id: string): PrefectureInfo =>
     getOne(
