@@ -1,5 +1,23 @@
 import { describe, expect, it } from 'vitest';
-import { getSanDistrictName, getSanDistrictSeats } from './utility.js';
+import {
+    compareSanDistrictIds,
+    getSanDistrictName,
+    getSanDistrictSeats,
+} from './utility.js';
+
+describe('compareSanDistrictIds', () => {
+    it('sorts districts in defined order', () => {
+        const unsorted = ['okinawa', 'hokkaido', 'tokyo'];
+        expect(
+            unsorted.sort(compareSanDistrictIds('2016-07-10')),
+        ).toStrictEqual(['hokkaido', 'tokyo', 'okinawa']);
+    });
+    it('throws for date predating the district system', () => {
+        expect(() =>
+            ['hokkaido', 'tokyo'].sort(compareSanDistrictIds('2015-01-01')),
+        ).toThrow('Date predates the current san district system: 2015-01-01');
+    });
+});
 
 describe('getSanDistrictName', () => {
     it('returns name for valid id', () => {

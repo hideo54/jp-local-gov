@@ -34,3 +34,13 @@ export const getSanDistrictSeats = (id: string, date: string): number =>
         getSanDistrictVersion(date).districts.filter(d => d.id === id),
         id,
     ).seats;
+
+export const compareSanDistrictIds =
+    (date: string) =>
+    (a: string, b: string): number => {
+        const { districts } = getSanDistrictVersion(date);
+        return (
+            districts.findIndex(d => d.id === a) -
+            districts.findIndex(d => d.id === b)
+        );
+    };
