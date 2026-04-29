@@ -129,8 +129,8 @@ export const coordinateToMeshCode = (
 
     const x2MeshCode =
         x10MeshCode +
-        (+(Math.floor(baseLat * 8 * 8) % 8).toString() +
-            (Math.floor(baseLon * 8 * 8) % 8).toString() +
+        (((Math.floor(baseLat * 8 * 5) % 5) * 2).toString() +
+            ((Math.floor(baseLon * 8 * 5) % 5) * 2).toString() +
             '5');
     if (resolution === 'JIS-3-x2' || resolution === '2km') return x2MeshCode;
 

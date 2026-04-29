@@ -53,6 +53,11 @@ describe('coordinateToMeshCode', () => {
         expect(coordinateToMeshCode(sampleCoordinate, '5km')).toEqual(
             '5339452',
         );
+
+        // https://www.geosense.co.jp/map/tool/geoconverter.php
+        expect(coordinateToMeshCode(sampleCoordinate, '2km')).toEqual(
+            '533945085',
+        );
     });
     it('throws for coordinate outside Japan', () => {
         expect(() => coordinateToMeshCode([0, 0], '1km')).toThrow(
