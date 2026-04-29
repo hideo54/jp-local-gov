@@ -132,8 +132,11 @@ export const coordinateToMeshCode = (
         (((Math.floor(baseLat * 8 * 5) % 5) * 2).toString() +
             ((Math.floor(baseLon * 8 * 5) % 5) * 2).toString() +
             '5');
+    /* v8 ignore next */
     if (resolution === 'JIS-3-x2' || resolution === '2km') return x2MeshCode;
 
+    /* v8 ignore start */
     const _exhaustiveCheck: never = resolution;
     return _exhaustiveCheck;
+    /* v8 ignore stop */
 };
