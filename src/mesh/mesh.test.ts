@@ -2,6 +2,12 @@ import { describe, expect, it } from 'vitest';
 import { coordinateToMeshCode } from './mesh.js';
 
 describe('coordinateToMeshCode', () => {
+    it('throws for coordinate with wrong number of elements', () => {
+        expect(() => coordinateToMeshCode([35, 139, 0], '1km')).toThrow(
+            'Coordinate must have exactly 2 elements.',
+        );
+    });
+
     it('throws for coordinate outside Japan', () => {
         expect(() => coordinateToMeshCode([0, 0], '1km')).toThrow(
             'Given coordinate is outside Japan.',

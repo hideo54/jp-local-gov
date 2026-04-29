@@ -29,9 +29,12 @@ export type MeshResolution =
     | '100m';
 
 export const coordinateToMeshCode = (
-    coordinate: [number, number],
+    coordinate: number[],
     resolution: MeshResolution,
 ): string => {
+    if (coordinate.length !== 2) {
+        throw new Error('Coordinate must have exactly 2 elements.');
+    }
     let latitude: number, longitude: number;
 
     if (
