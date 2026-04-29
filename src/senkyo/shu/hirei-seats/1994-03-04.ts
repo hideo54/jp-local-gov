@@ -1,6 +1,5 @@
 import type { ShuHireiBlockId } from '../hirei-block.js';
 
-// 1994年3月4日施行
 export const shuHireiBlockSeatCounts1994: { [key in ShuHireiBlockId]: number } =
     {
         hokkaido: 9,

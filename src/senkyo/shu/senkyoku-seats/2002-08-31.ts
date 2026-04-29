@@ -1,6 +1,5 @@
 import type { PrefectureId } from '../../../prefecture/index.js';
 
-// 2002年8月31日施行
 export const shuDistrictCounts2002: { [key in PrefectureId]: number } = {
     hokkaido: 12, // 1減
     aomori: 4,
