@@ -20,6 +20,8 @@ export type MeshResolution =
     | '5' // 5次メッシュコード
     | '80km'
     | '10km'
+    | '5km'
+    | '2km'
     | '1km'
     | '500m'
     | '250m'
@@ -123,14 +125,14 @@ export const coordinateToMeshCode = (
         (+1 +
             (Math.floor(baseLat * 8 * 2) % 2) * 2 +
             (Math.floor(baseLon * 8 * 2) % 2));
-    if (resolution === 'JIS-3-x5') return x5MeshCode;
+    if (resolution === 'JIS-3-x5' || resolution === '5km') return x5MeshCode;
 
     const x2MeshCode =
         x10MeshCode +
         (+(Math.floor(baseLat * 8 * 8) % 8).toString() +
             (Math.floor(baseLon * 8 * 8) % 8).toString() +
             '5');
-    if (resolution === 'JIS-3-x2') return x2MeshCode;
+    if (resolution === 'JIS-3-x2' || resolution === '2km') return x2MeshCode;
 
     const defaultResult = standardMeshCode;
     return defaultResult;
