@@ -7,10 +7,10 @@ import type {
     HireiBlockId,
     HireiBlockName,
 } from './hirei-block.js';
-import { hireiBlocks } from './hirei-block.js';
+import { hireiBlocks, shuHireiBlockIds } from './hirei-block.js';
 
 export const isShuHireiBlockId = (s: string): s is HireiBlockId =>
-    hireiBlocks.some(b => b.id === s);
+    shuHireiBlockIds.some(id => id === s);
 
 export const getShuHireiBlockName = (id: string): HireiBlockName =>
     getOne(

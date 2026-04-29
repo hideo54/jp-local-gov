@@ -1,17 +1,20 @@
 import type { PrefectureId } from '../../prefecture/index.js';
 
-export type HireiBlockId =
-    | 'hokkaido'
-    | 'tohoku'
-    | 'kitakanto'
-    | 'minamikanto'
-    | 'tokyo'
-    | 'hokurikushinetsu'
-    | 'tokai'
-    | 'kinki'
-    | 'chugoku'
-    | 'shikoku'
-    | 'kyushu';
+export const shuHireiBlockIds = [
+    'hokkaido',
+    'tohoku',
+    'kitakanto',
+    'minamikanto',
+    'tokyo',
+    'hokurikushinetsu',
+    'tokai',
+    'kinki',
+    'chugoku',
+    'shikoku',
+    'kyushu',
+] as const;
+
+export type HireiBlockId = (typeof shuHireiBlockIds)[number];
 
 export type HireiBlockName =
     | '北海道'
