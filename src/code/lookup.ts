@@ -29,9 +29,9 @@ export const findByCode = (
     const version = options?.version ?? latestVersion;
     const codeWithCheckDigit =
         code.length === 5 ? code + calculateCheckDigit(code) : code;
-    const { designatedCities, municipalities, prefectures } =
+    const { designatedCityWards, municipalities, prefectures } =
         getDataByVersion(version);
-    const hitDesignatedCity = designatedCities.find(
+    const hitDesignatedCity = designatedCityWards.find(
         city => city.code === codeWithCheckDigit,
     );
     if (hitDesignatedCity) {
@@ -73,14 +73,14 @@ export const searchByName = (
         excludePrefectures = false,
         partial = false,
     } = options ?? {};
-    const { designatedCities, municipalities, prefectures } =
+    const { designatedCityWards, municipalities, prefectures } =
         getDataByVersion(version);
     const matches = (target: string) =>
         partial ? target.includes(name) : target === name;
     const results: (DesignatedCityWard | Municipality | Prefecture)[] = [];
     if (!excludeDesignatedCityWards) {
         results.push(
-            ...designatedCities.filter(
+            ...designatedCityWards.filter(
                 ward =>
                     (matches(ward.cityName) || matches(ward.cityRuby)) &&
                     (!prefectureName || ward.prefectureName === prefectureName),

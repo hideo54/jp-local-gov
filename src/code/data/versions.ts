@@ -1,4 +1,4 @@
-import { designatedCityWards as designatedCities2024 } from './2024-01-01/designatedCityWards.js';
+import { designatedCityWards as designatedCityWards2024 } from './2024-01-01/designatedCityWards.js';
 import { municipalities as municipalities2024 } from './2024-01-01/municipalities.js';
 import { prefectures as prefectures2024 } from './2024-01-01/prefectures.js';
 
@@ -11,7 +11,7 @@ export const latestVersion: Version = versions[versions.length - 1];
 export const getDataByVersion = (version: Version) => {
     if (version === '2024-01-01') {
         return {
-            designatedCities: designatedCities2024,
+            designatedCityWards: designatedCityWards2024,
             municipalities: municipalities2024,
             prefectures: prefectures2024,
         };
