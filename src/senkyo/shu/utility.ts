@@ -24,7 +24,9 @@ export const getShuHireiBlockId = (name: string): ShuHireiBlockId =>
         name,
     ).id;
 
-export const getShuHireiBlockPrefectures = (id: string): PrefectureId[] =>
+export const getShuHireiBlockPrefectures = (
+    id: string,
+): readonly PrefectureId[] =>
     getOne(
         shuHireiBlocks.filter(b => b.id === id),
         id,

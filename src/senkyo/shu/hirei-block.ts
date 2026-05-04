@@ -32,7 +32,7 @@ export type ShuHireiBlockName =
 export interface ShuHireiBlock {
     id: ShuHireiBlockId;
     name: ShuHireiBlockName;
-    prefectures: PrefectureId[];
+    prefectures: readonly PrefectureId[];
 }
 
 // 公職選挙法 別表2 に拠る。
