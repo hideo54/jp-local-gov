@@ -8,11 +8,29 @@ import {
     getDataByVersion,
     latestVersion,
     type Version,
+    versions,
 } from './data/versions.js';
 
 export interface FindByCodeOption {
     version?: Version;
 }
+
+const codeMapsByVersion = new Map(
+    versions.map(version => {
+        const { designatedCityWards, municipalities, prefectures } =
+            getDataByVersion(version);
+        const map = new Map<
+            string,
+            DesignatedCityWard | Municipality | Prefecture
+        >();
+        for (const ward of designatedCityWards) map.set(ward.code, ward);
+        for (const municipality of municipalities)
+            map.set(municipality.code, municipality);
+        for (const prefecture of prefectures)
+            map.set(prefecture.code, prefecture);
+        return [version, map] as const;
+    }),
+);
 
 export const findByCode = (
     code: string,
@@ -29,27 +47,7 @@ export const findByCode = (
     const version = options?.version ?? latestVersion;
     const codeWithCheckDigit =
         code.length === 5 ? code + calculateCheckDigit(code) : code;
-    const { designatedCityWards, municipalities, prefectures } =
-        getDataByVersion(version);
-    const hitDesignatedCity = designatedCityWards.find(
-        city => city.code === codeWithCheckDigit,
-    );
-    if (hitDesignatedCity) {
-        return hitDesignatedCity;
-    }
-    const hitMunicipality = municipalities.find(
-        city => city.code === codeWithCheckDigit,
-    );
-    if (hitMunicipality) {
-        return hitMunicipality;
-    }
-    const hitPrefecture = prefectures.find(
-        pref => pref.code === codeWithCheckDigit,
-    );
-    if (hitPrefecture) {
-        return hitPrefecture;
-    }
-    return undefined;
+    return codeMapsByVersion.get(version)?.get(codeWithCheckDigit);
 };
 
 export interface SearchByNameOption {
