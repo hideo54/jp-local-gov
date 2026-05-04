@@ -12,9 +12,7 @@ const sanDistrictVersions: readonly SanDistrictVersion[] = [
 ];
 
 const getSanDistrictVersion = (date: string): SanDistrictVersion => {
-    const version = sanDistrictVersions
-        .filter(v => v.enforcedFrom <= date)
-        .at(-1);
+    const version = sanDistrictVersions.findLast(v => v.enforcedFrom <= date);
     if (!version) {
         throw new Error(
             `Date predates the current san district system: ${date}`,

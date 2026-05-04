@@ -41,7 +41,7 @@ export const getShuHireiBlockForPrefecture = (
     );
 
 const getShuElection = (date: string): ShuElection => {
-    const election = shuElections.filter(e => e.voteDate <= date).at(-1);
+    const election = shuElections.findLast(e => e.voteDate <= date);
     if (!election) {
         throw new Error(`Date predates the current electoral system: ${date}`);
     }
