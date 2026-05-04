@@ -63,6 +63,30 @@ getSanDistrictSeats('tokyo', '2025-07-01') // 6
 
 総務省が定めている「[全国地方公共団体コード](https://www.soumu.go.jp/denshijiti/code.html)」のための機能群です。JIS X 0401 で定められている2桁の都道府県コード、JIS X 0402 で定められている3桁の市区町村コードと、検査数字1桁から成ります。
 
+```ts
+calculateCheckDigit('27000') // 8
+hasValidCheckDigit('270008') // true
+
+findByCode('270008') // { type: 'prefecture', code: '270008', prefectureName: '大阪府', prefectureRuby: 'おおさかふ' }
+findByCode('271004') // { type: 'municipality', code: '271004', prefectureName: '大阪府', municipalityName: '大阪市', municipalityRuby: 'おおさかし' }
+findByCode('271021') // { type: 'designated-city-ward', code: '271021', prefectureName: '大阪府', municipalityName: '大阪市', cityName: '大阪市都島区', cityRuby: 'おおさかしみやこじまく' }
+findByCode('27000')  // 検査数字なしの5桁でも可
+
+searchByName('大阪府')                                // [{ type: 'prefecture', ... }]
+searchByName('府中市')                                // 東京都・広島県の2件
+searchByName('府中市', { prefectureName: '東京都' }) // 1件に絞り込み
+searchByName('大阪', { partial: true })               // 部分一致
+```
+
+* `calculateCheckDigit(code)`: 5桁のコードから検査数字を計算します
+* `hasValidCheckDigit(code)`: 6桁のコードの検査数字が正しいか検証します
+* `findByCode(code, options?)`: 5桁または6桁のコードからエントリを返します。存在しない場合は `undefined`
+* `searchByName(name, options?)`: 名前 (漢字またはひらがなのルビ) でエントリを検索します
+  * `prefectureName`: 都道府県名で絞り込み
+  * `partial`: `true` にすると部分一致検索
+  * `excludeDesignatedCityWards` / `excludeMunicipalities` / `excludePrefectures`: 対象種別の除外
+* 型 `Prefecture` / `Municipality` / `DesignatedCityWard`: 各エントリの型
+
 #### 利用データ
 
 - 2024年 (令和6年) 1月1日更新 (000925835)
