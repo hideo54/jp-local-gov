@@ -1,19 +1,63 @@
 # jp-local-gov
 
-`npm install jp-local-gov`
-
-![types included](https://badgen.net/npm/types/tslib)
-[![npm version](https://badge.fury.io/js/jp-local-gov.svg)](https://badge.fury.io/js/jp-local-gov)
+`pnpm install jp-local-gov`
 
 ## 機能一覧
 
 ### 都道府県
 
-TBA
+```ts
+isPrefectureId('tokyo') // true
+
+getPrefectureInfoById('osaka') // { id: 'osaka', name: '大阪府', shortName: '大阪', website: 'https://www.pref.osaka.lg.jp/', adjacentPrefectureIds: ['kyoto', 'hyogo', 'nara', 'wakayama'] }
+getPrefectureInfoByName('大阪府') // { id: 'osaka', name: '大阪府', shortName: '大阪', website: 'https://www.pref.osaka.lg.jp/', adjacentPrefectureIds: ['kyoto', 'hyogo', 'nara', 'wakayama'] }
+getPrefectureInfoByName('大阪')   // { id: 'osaka', name: '大阪府', shortName: '大阪', website: 'https://www.pref.osaka.lg.jp/', adjacentPrefectureIds: ['kyoto', 'hyogo', 'nara', 'wakayama'] }
+
+// comparePrefectureIds は sort の比較関数として使用 (北海道から沖縄の順)
+['okinawa', 'tokyo', 'hokkaido'].sort(comparePrefectureIds) // ['hokkaido', 'tokyo', 'okinawa']
+```
+
+* `prefectureInfos`: 全都道府県の情報一覧
+* 型 `PrefectureId`: 各都道府県が定めるローマ字表記をもとに当ライブラリが定めた都道府県の ID (例: `'hokkaido'`, `'tokyo'`)
 
 ### 衆議院
 
-TBA
+各都道府県の、衆議院の小選挙区の数や、所属する比例代表ブロックとその定数などを扱います。数字は公職選挙法の改正により頻繁に変化するため、`date` 引数に `'YYYY-MM-DD'` 形式の文字列を渡す必要があり、指定した日付時点で選挙が行われた場合の結果を取得できます。
+
+```ts
+isShuHireiBlockId('kinki') // true
+
+getShuHireiBlockName('kinki') // '近畿'
+getShuHireiBlockId('近畿') // 'kinki'
+getShuHireiBlockPrefectures('kinki') // ['shiga', 'kyoto', 'osaka', 'hyogo', 'nara', 'wakayama']
+getShuHireiBlockForPrefecture('osaka') // { id: 'kinki', name: '近畿', prefectures: ['shiga', 'kyoto', 'osaka', 'hyogo', 'nara', 'wakayama'] }
+
+getShuDistrictCounts('2026-01-01').tokyo // 30
+getShuHireiBlockSeatCounts('2026-01-01').tokyo // 19
+```
+
+* `shuElections`: 現制度 (小選挙区比例代表並立制) で行われてきた衆議院議員総選挙の一覧
+* `shuHireiBlocks`: 比例ブロックの一覧
+* `shuDistrictCounts1994 / 2002 / 2013 / 2017 / 2022`: YYYY年に施行された改正公職選挙法による都道府県ごとの小選挙区の数
+* `shuHireiBlockSeatCounts1994 / 2000 / 2002 / 2017 / 2022`: YYYY年に施行された改正公職選挙法による比例ブロックごとの定数
+* 型 `ShuHireiBlockId`: 当ライブラリが定めた比例ブロックの ID (`'hokkaido'`, `'tohoku'`, `'kitakanto'`, `'minamikanto'`, `'tokyo'`, `'hokurikushinetsu'`, `'tokai'`, `'kinki'`, `'chugoku'`, `'shikoku'`, `'kyushu'`)
+
+### 参議院
+
+<!-- 各都道府県の、衆議院の小選挙区の数や、所属する比例代表ブロックとその定数などを扱います。数字は公職選挙法の改正により頻繁に変化するため、date 引数に 'YYYY-MM-DD' 形式の文字列を渡す必要があり、指定した日付時点で選挙が行われた場合の結果を取得できます。 -->
+
+参議院の各選挙区の定数などの情報を扱います。参議院の選挙区は概ね都道府県ベースですが、2015年に「合区」が導入されて以降は都道府県と一致しておらず、将来的にさらに合区が増える可能性があるため、`date` 引数に `'YYYY-MM-DD'` 形式の文字列を渡す必要があり、指定した日付時点で選挙が行われた場合の結果を取得できます。
+
+```ts
+getSanDistrictName('tottori-shimane', '2025-07-01') // '鳥取県・島根県'
+getSanDistrictSeats('tokyo', '2025-07-01') // 6
+
+// compareSanDistrictIds は sort の比較関数として使用
+['okinawa', 'hokkaido', 'tokyo'].sort(compareSanDistrictIds('2025-07-01')) // ['hokkaido', 'tokyo', 'okinawa']
+```
+
+* `sanDistricts2015`: 2015年に施行された改正公職選挙法による選挙区の一覧
+* 型 `SanDistrictId2015`: 当ライブラリが定めた選挙区の ID (基本的に上述の都道府県 ID であり、合区の場合は日本産業規格で定められた順でハイフンで繋げたもの)
 
 ### 全国地方公共団体コード
 
