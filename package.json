@@ -1,6 +1,6 @@
 {
     "name": "jp-local-gov",
-    "version": "1.8.0",
+    "version": "2.0.0",
     "description": "Data and utilities for Japanese prefectures, electoral districts, municipality codes, and mesh codes.",
     "homepage": "https://github.com/hideo54/jp-local-gov#readme",
     "bugs": {
