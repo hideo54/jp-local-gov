@@ -36,10 +36,21 @@ getShuDistrictCounts('2026-01-01').tokyo // 30
 getShuHireiBlockSeatCounts('2026-01-01').tokyo // 19
 ```
 
+また、各小選挙区の ID を `{都道府県ID}-{区番号}` と取り決め、存在の確認や並び替えを行うことができます。
+
+```ts
+isShuDistrictId('tokyo-30', '2026-01-01') // true
+isShuDistrictId('tokyo-30', '2021-10-31') // false (2022年の区割り改定で新設されたため)
+
+// compareShuDistrictIds は sort の比較関数として使用
+['tokyo-10', 'hokkaido-1', 'tokyo-2'].sort(compareShuDistrictIds) // ['hokkaido-1', 'tokyo-2', 'tokyo-10']
+```
+
 * `shuElections`: 現制度 (小選挙区比例代表並立制) で行われてきた衆議院議員総選挙の一覧
 * `shuHireiBlocks`: 比例ブロックの一覧
 * `shuDistrictCounts1994 / 2002 / 2013 / 2017 / 2022`: YYYY年に施行された改正公職選挙法による都道府県ごとの小選挙区の数
 * `shuHireiBlockSeatCounts1994 / 2000 / 2002 / 2017 / 2022`: YYYY年に施行された改正公職選挙法による比例ブロックごとの定数
+* 型 `ShuDistrictId`: 当ライブラリが定めた小選挙区の ID (`` `${都道府県 ID}-${区の番号}` ``、例: `'tokyo-1'`)
 * 型 `ShuHireiBlockId`: 当ライブラリが定めた比例ブロックの ID (`'hokkaido'`, `'tohoku'`, `'kitakanto'`, `'minamikanto'`, `'tokyo'`, `'hokurikushinetsu'`, `'tokai'`, `'kinki'`, `'chugoku'`, `'shikoku'`, `'kyushu'`)
 
 ### 参議院

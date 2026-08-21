@@ -1,11 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import {
+    compareShuDistrictIds,
     getShuDistrictCounts,
     getShuHireiBlockForPrefecture,
     getShuHireiBlockId,
     getShuHireiBlockName,
     getShuHireiBlockPrefectures,
     getShuHireiBlockSeatCounts,
+    isShuDistrictId,
     isShuHireiBlockId,
 } from './utility.js';
 
@@ -94,5 +96,52 @@ describe('getShuHireiBlockForPrefecture', () => {
         expect(() => getShuHireiBlockForPrefecture('unknown')).toThrow(
             'Item not found: unknown',
         );
+    });
+});
+
+describe('compareShuDistrictIds', () => {
+    it('sorts by prefecture order, then by district number', () => {
+        const unsorted = ['tokyo-10', 'hokkaido-1', 'tokyo-2', 'tokyo-1'];
+        expect(unsorted.sort(compareShuDistrictIds)).toStrictEqual([
+            'hokkaido-1',
+            'tokyo-1',
+            'tokyo-2',
+            'tokyo-10',
+        ]);
+    });
+    it('throws for an unknown prefecture', () => {
+        expect(() => compareShuDistrictIds('unknown-1', 'tokyo-1')).toThrow(
+            'Invalid shu district id: unknown-1',
+        );
+    });
+    it('throws when the second argument is invalid', () => {
+        expect(() => compareShuDistrictIds('tokyo-1', 'unknown-1')).toThrow(
+            'Invalid shu district id: unknown-1',
+        );
+    });
+    it('throws for a malformed id', () => {
+        expect(() => compareShuDistrictIds('tokyo', 'tokyo-1')).toThrow(
+            'Invalid shu district id: tokyo',
+        );
+        expect(() => compareShuDistrictIds('tokyo-01', 'tokyo-1')).toThrow(
+            'Invalid shu district id: tokyo-01',
+        );
+        expect(() => compareShuDistrictIds('tokyo-1-2', 'tokyo-1')).toThrow(
+            'Invalid shu district id: tokyo-1-2',
+        );
+    });
+});
+
+describe('isShuDistrictId', () => {
+    it('returns true for an existing district at the given date', () => {
+        expect(isShuDistrictId('tokyo-30', '2024-10-27')).toBe(true);
+    });
+    it('returns false for a district not existing at the given date', () => {
+        // 東京30区は2022年の区割り改定で新設された
+        expect(isShuDistrictId('tokyo-30', '2021-10-31')).toBe(false);
+    });
+    it('returns false for a malformed id', () => {
+        expect(isShuDistrictId('tokyo', '2024-10-27')).toBe(false);
+        expect(isShuDistrictId('unknown-1', '2024-10-27')).toBe(false);
     });
 });

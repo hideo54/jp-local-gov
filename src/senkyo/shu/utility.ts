@@ -1,5 +1,9 @@
 import { getOne } from '../../lib.js';
 import type { PrefectureId } from '../../prefecture/index.js';
+import {
+    comparePrefectureIds,
+    isPrefectureId,
+} from '../../prefecture/index.js';
 import type { ShuElection } from './elections.js';
 import { shuElections } from './elections.js';
 import type {
@@ -53,3 +57,42 @@ export const getShuDistrictCounts = (date: string) =>
 
 export const getShuHireiBlockSeatCounts = (date: string) =>
     getShuElection(date).hireiSeatCounts;
+
+export type ShuDistrictId = `${PrefectureId}-${number}`;
+
+interface ParsedShuDistrictId {
+    prefectureId: PrefectureId;
+    number: number;
+}
+
+const parseShuDistrictId = (id: string): ParsedShuDistrictId | null => {
+    const [prefectureId, number, ...rest] = id.split('-');
+    if (
+        rest.length > 0 ||
+        !isPrefectureId(prefectureId) ||
+        !/^[1-9][0-9]*$/.test(number ?? '')
+    ) {
+        return null;
+    }
+    return { prefectureId, number: Number(number) };
+};
+
+export const isShuDistrictId = (
+    s: string,
+    date: string,
+): s is ShuDistrictId => {
+    const parsed = parseShuDistrictId(s);
+    if (parsed === null) return false;
+    return parsed.number <= getShuDistrictCounts(date)[parsed.prefectureId];
+};
+
+export const compareShuDistrictIds = (a: string, b: string): number => {
+    const parsedA = parseShuDistrictId(a);
+    const parsedB = parseShuDistrictId(b);
+    if (parsedA === null) throw new Error(`Invalid shu district id: ${a}`);
+    if (parsedB === null) throw new Error(`Invalid shu district id: ${b}`);
+    return (
+        comparePrefectureIds(parsedA.prefectureId, parsedB.prefectureId) ||
+        parsedA.number - parsedB.number
+    );
+};
