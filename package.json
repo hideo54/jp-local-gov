@@ -33,7 +33,6 @@
     },
     "devDependencies": {
         "@biomejs/biome": "^2.5.9",
-        "@typescript/native-preview": "7.0.0-dev.20260707.2",
         "@vitest/coverage-v8": "4.1.11",
         "lint-staged": "^17.3.0",
         "typescript": "^7.0.2",
