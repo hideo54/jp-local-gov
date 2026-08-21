@@ -28,16 +28,16 @@
         }
     },
     "scripts": {
-        "build": "tsgo",
+        "build": "tsc",
         "test": "vitest"
     },
     "devDependencies": {
-        "@biomejs/biome": "^2.4.13",
-        "@typescript/native-preview": "7.0.0-dev.20260423.1",
-        "@vitest/coverage-v8": "4.1.5",
-        "lint-staged": "^16.4.0",
-        "typescript": "^5.5.3",
-        "vitest": "^4.1.5"
+        "@biomejs/biome": "^2.5.9",
+        "@typescript/native-preview": "7.0.0-dev.20260707.2",
+        "@vitest/coverage-v8": "4.1.11",
+        "lint-staged": "^17.3.0",
+        "typescript": "^7.0.2",
+        "vitest": "^4.1.11"
     },
     "lint-staged": {
         "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
