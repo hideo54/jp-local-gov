@@ -1,16 +1,14 @@
 import { getOne } from '../lib.js';
-import { prefectureInfos } from './data.js';
+import { prefectureIds, prefectureInfos } from './data.js';
 import type { PrefectureId, PrefectureInfo } from './types.js';
 
 export const isPrefectureId = (s: string): s is PrefectureId =>
-    prefectureInfos.some(p => p.id === s);
+    prefectureIds.some(id => id === s);
 
 export const comparePrefectureIds = (
     a: PrefectureId,
     b: PrefectureId,
-): number =>
-    prefectureInfos.findIndex(p => p.id === a) -
-    prefectureInfos.findIndex(p => p.id === b);
+): number => prefectureIds.indexOf(a) - prefectureIds.indexOf(b);
 
 export const getPrefectureInfoById = (id: string): PrefectureInfo =>
     getOne(

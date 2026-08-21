@@ -1,4 +1,4 @@
-export { prefectureInfos } from './data.js';
+export { prefectureIds, prefectureInfos } from './data.js';
 export type { PrefectureId, PrefectureInfo } from './types.js';
 export {
     comparePrefectureIds,

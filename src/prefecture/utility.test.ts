@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { prefectureIds, prefectureInfos } from './data.js';
 import type { PrefectureId } from './types.js';
 import {
     comparePrefectureIds,
@@ -6,6 +7,16 @@ import {
     getPrefectureInfoByName,
     isPrefectureId,
 } from './utility.js';
+
+describe('prefectureIds', () => {
+    it('matches the ids and order of prefectureInfos', () => {
+        expect(prefectureIds).toStrictEqual(prefectureInfos.map(p => p.id));
+    });
+    it('covers all 47 prefectures', () => {
+        expect(prefectureIds).toHaveLength(47);
+        expect(new Set(prefectureIds).size).toBe(47);
+    });
+});
 
 describe('comparePrefectureIds', () => {
     it('sorts prefectures in defined order', () => {

@@ -13,11 +13,14 @@ getPrefectureInfoById('osaka') // { id: 'osaka', name: '大阪府', shortName: '
 getPrefectureInfoByName('大阪府') // { id: 'osaka', name: '大阪府', shortName: '大阪', website: 'https://www.pref.osaka.lg.jp/', adjacentPrefectureIds: ['kyoto', 'hyogo', 'nara', 'wakayama'] }
 getPrefectureInfoByName('大阪')   // { id: 'osaka', name: '大阪府', shortName: '大阪', website: 'https://www.pref.osaka.lg.jp/', adjacentPrefectureIds: ['kyoto', 'hyogo', 'nara', 'wakayama'] }
 
+prefectureIds // ['hokkaido', 'aomori', ..., 'okinawa'] (47件)
+
 // comparePrefectureIds は sort の比較関数として使用 (北海道から沖縄の順)
 ['okinawa', 'tokyo', 'hokkaido'].sort(comparePrefectureIds) // ['hokkaido', 'tokyo', 'okinawa']
 ```
 
-* `prefectureInfos`: 全都道府県の情報一覧
+* `prefectureIds`: 全都道府県の ID 一覧 (北海道から沖縄の順)
+* `prefectureInfos`: 全都道府県の情報一覧 (`prefectureIds` と同じ順)
 * 型 `PrefectureId`: 各都道府県が定めるローマ字表記をもとに当ライブラリが定めた都道府県の ID (例: `'hokkaido'`, `'tokyo'`)
 
 ### 衆議院
