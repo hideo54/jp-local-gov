@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import {
     compareShuDistrictIds,
+    compareShuDistrictOrHireiBlockIds,
+    fromShuHireiBlockIdWithPrefix,
     getShuDistrictCounts,
     getShuHireiBlockForPrefecture,
     getShuHireiBlockId,
@@ -9,6 +11,8 @@ import {
     getShuHireiBlockSeatCounts,
     isShuDistrictId,
     isShuHireiBlockId,
+    isShuHireiBlockIdWithPrefix,
+    toShuHireiBlockIdWithPrefix,
 } from './utility.js';
 
 describe('isShuHireiBlockId', () => {
@@ -143,5 +147,78 @@ describe('isShuDistrictId', () => {
     it('returns false for a malformed id', () => {
         expect(isShuDistrictId('tokyo', '2024-10-27')).toBe(false);
         expect(isShuDistrictId('unknown-1', '2024-10-27')).toBe(false);
+    });
+});
+
+describe('isShuHireiBlockIdWithPrefix', () => {
+    it('returns true for a prefixed id', () => {
+        expect(isShuHireiBlockIdWithPrefix('hirei-kinki')).toBe(true);
+    });
+    it('returns false for an unprefixed id', () => {
+        expect(isShuHireiBlockIdWithPrefix('kinki')).toBe(false);
+    });
+    it('returns false for an unknown block', () => {
+        expect(isShuHireiBlockIdWithPrefix('hirei-unknown')).toBe(false);
+    });
+});
+
+describe('toShuHireiBlockIdWithPrefix', () => {
+    it('adds the prefix', () => {
+        expect(toShuHireiBlockIdWithPrefix('kinki')).toStrictEqual(
+            'hirei-kinki',
+        );
+    });
+});
+
+describe('fromShuHireiBlockIdWithPrefix', () => {
+    it('removes the prefix', () => {
+        expect(fromShuHireiBlockIdWithPrefix('hirei-kinki')).toStrictEqual(
+            'kinki',
+        );
+    });
+    it('throws for an unprefixed id', () => {
+        expect(() => fromShuHireiBlockIdWithPrefix('kinki')).toThrow(
+            'Invalid prefixed shu hirei block id: kinki',
+        );
+    });
+});
+
+describe('compareShuDistrictOrHireiBlockIds', () => {
+    it('sorts districts before hirei blocks', () => {
+        const unsorted = [
+            'hirei-kinki',
+            'tokyo-10',
+            'hirei-hokkaido',
+            'hokkaido-1',
+            'tokyo-2',
+        ];
+        expect(unsorted.sort(compareShuDistrictOrHireiBlockIds)).toStrictEqual([
+            'hokkaido-1',
+            'tokyo-2',
+            'tokyo-10',
+            'hirei-hokkaido',
+            'hirei-kinki',
+        ]);
+    });
+    it('sorts hirei blocks in the order of 公職選挙法 別表2', () => {
+        const unsorted = ['hirei-kyushu', 'hirei-tohoku', 'hirei-hokkaido'];
+        expect(unsorted.sort(compareShuDistrictOrHireiBlockIds)).toStrictEqual([
+            'hirei-hokkaido',
+            'hirei-tohoku',
+            'hirei-kyushu',
+        ]);
+    });
+    it('throws for an unprefixed hirei block id', () => {
+        expect(() =>
+            compareShuDistrictOrHireiBlockIds('kinki', 'tokyo-1'),
+        ).toThrow('Invalid shu district or hirei block id: kinki');
+    });
+    it('throws for an unknown id', () => {
+        expect(() =>
+            compareShuDistrictOrHireiBlockIds('tokyo-1', 'unknown-1'),
+        ).toThrow('Invalid shu district or hirei block id: unknown-1');
+        expect(() =>
+            compareShuDistrictOrHireiBlockIds('hirei-kinki', 'hirei-unknown'),
+        ).toThrow('Invalid shu district or hirei block id: hirei-unknown');
     });
 });

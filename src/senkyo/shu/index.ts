@@ -19,9 +19,15 @@ export { shuDistrictCounts2002 } from './senkyoku-seats/2002-08-31.js';
 export { shuDistrictCounts2013 } from './senkyoku-seats/2013-07-28.js';
 export { shuDistrictCounts2017 } from './senkyoku-seats/2017-07-16.js';
 export { shuDistrictCounts2022 } from './senkyoku-seats/2022-12-28.js';
-export type { ShuDistrictId } from './utility.js';
+export type {
+    ShuDistrictId,
+    ShuDistrictOrHireiBlockId,
+    ShuHireiBlockIdWithPrefix,
+} from './utility.js';
 export {
     compareShuDistrictIds,
+    compareShuDistrictOrHireiBlockIds,
+    fromShuHireiBlockIdWithPrefix,
     getShuDistrictCounts,
     getShuHireiBlockForPrefecture,
     getShuHireiBlockId,
@@ -30,4 +36,6 @@ export {
     getShuHireiBlockSeatCounts,
     isShuDistrictId,
     isShuHireiBlockId,
+    isShuHireiBlockIdWithPrefix,
+    toShuHireiBlockIdWithPrefix,
 } from './utility.js';

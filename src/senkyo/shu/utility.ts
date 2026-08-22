@@ -96,3 +96,53 @@ export const compareShuDistrictIds = (a: string, b: string): number => {
         parsedA.number - parsedB.number
     );
 };
+
+export type ShuHireiBlockIdWithPrefix = `hirei-${ShuHireiBlockId}`;
+
+export type ShuDistrictOrHireiBlockId =
+    | ShuDistrictId
+    | ShuHireiBlockIdWithPrefix;
+
+export const isShuHireiBlockIdWithPrefix = (
+    s: string,
+): s is ShuHireiBlockIdWithPrefix =>
+    s.startsWith('hirei-') && isShuHireiBlockId(s.slice('hirei-'.length));
+
+export const toShuHireiBlockIdWithPrefix = (
+    id: ShuHireiBlockId,
+): ShuHireiBlockIdWithPrefix => `hirei-${id}`;
+
+export const fromShuHireiBlockIdWithPrefix = (s: string): ShuHireiBlockId => {
+    if (!isShuHireiBlockIdWithPrefix(s)) {
+        throw new Error(`Invalid prefixed shu hirei block id: ${s}`);
+    }
+    return s.slice('hirei-'.length) as ShuHireiBlockId;
+};
+
+export const compareShuDistrictOrHireiBlockIds = (
+    a: string,
+    b: string,
+): number => {
+    const parsedA = parseShuDistrictId(a);
+    const parsedB = parseShuDistrictId(b);
+    if (parsedA !== null && parsedB !== null) {
+        return (
+            comparePrefectureIds(parsedA.prefectureId, parsedB.prefectureId) ||
+            parsedA.number - parsedB.number
+        );
+    }
+    const hireiA = isShuHireiBlockIdWithPrefix(a);
+    const hireiB = isShuHireiBlockIdWithPrefix(b);
+    if (parsedA === null && !hireiA) {
+        throw new Error(`Invalid shu district or hirei block id: ${a}`);
+    }
+    if (parsedB === null && !hireiB) {
+        throw new Error(`Invalid shu district or hirei block id: ${b}`);
+    }
+    if (!hireiA) return -1;
+    if (!hireiB) return 1;
+    return (
+        shuHireiBlockIds.indexOf(fromShuHireiBlockIdWithPrefix(a)) -
+        shuHireiBlockIds.indexOf(fromShuHireiBlockIdWithPrefix(b))
+    );
+};
