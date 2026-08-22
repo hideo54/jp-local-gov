@@ -5,6 +5,7 @@ export type {
 export { sanDistrictIds2015, sanDistricts2015 } from './senkyoku/2015-11-05.js';
 export {
     compareSanDistrictIds,
+    compareSanDistrictIdsAt,
     getSanDistrictName,
     getSanDistrictSeats,
 } from './utility.js';

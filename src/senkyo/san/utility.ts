@@ -11,7 +11,10 @@ const sanDistrictVersions: readonly SanDistrictVersion[] = [
     { enforcedFrom: '2015-11-05', districts: sanDistricts2015 },
 ];
 
-const getSanDistrictVersion = (date: string): SanDistrictVersion => {
+const getSanDistrictVersion = (date?: string): SanDistrictVersion => {
+    if (date === undefined) {
+        return getOne(sanDistrictVersions.slice(-1), 'latest');
+    }
     const version = sanDistrictVersions.findLast(v => v.enforcedFrom <= date);
     if (!version) {
         throw new Error(
@@ -21,20 +24,20 @@ const getSanDistrictVersion = (date: string): SanDistrictVersion => {
     return version;
 };
 
-export const getSanDistrictName = (id: string, date: string): string =>
+export const getSanDistrictName = (id: string, date?: string): string =>
     getOne(
         getSanDistrictVersion(date).districts.filter(d => d.id === id),
         id,
     ).name;
 
-export const getSanDistrictSeats = (id: string, date: string): number =>
+export const getSanDistrictSeats = (id: string, date?: string): number =>
     getOne(
         getSanDistrictVersion(date).districts.filter(d => d.id === id),
         id,
     ).seats;
 
-export const compareSanDistrictIds =
-    (date: string) =>
+export const compareSanDistrictIdsAt =
+    (date?: string) =>
     (a: string, b: string): number => {
         const { districts } = getSanDistrictVersion(date);
         return (
@@ -42,3 +45,6 @@ export const compareSanDistrictIds =
             districts.findIndex(d => d.id === b)
         );
     };
+
+export const compareSanDistrictIds = (a: string, b: string): number =>
+    compareSanDistrictIdsAt()(a, b);

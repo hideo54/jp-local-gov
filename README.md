@@ -79,11 +79,18 @@ isShuHireiBlockIdWithPrefix('kinki')         // false
 参議院の各選挙区の定数などの情報を扱います。参議院の選挙区は概ね都道府県ベースですが、2015年に「合区」が導入されて以降は都道府県と一致しておらず、将来的にさらに合区が増える可能性があるため、`date` 引数に `'YYYY-MM-DD'` 形式の文字列を渡す必要があり、指定した日付時点で選挙が行われた場合の結果を取得できます。
 
 ```ts
+// date は省略可能で、省略した場合は最新の制度 (現在は2015年施行のもの) を使う
+getSanDistrictName('tottori-shimane') // '鳥取県・島根県'
+getSanDistrictSeats('tokyo') // 6
+
 getSanDistrictName('tottori-shimane', '2025-07-01') // '鳥取県・島根県'
 getSanDistrictSeats('tokyo', '2025-07-01') // 6
 
 // compareSanDistrictIds は sort の比較関数として使用
-['okinawa', 'hokkaido', 'tokyo'].sort(compareSanDistrictIds('2025-07-01')) // ['hokkaido', 'tokyo', 'okinawa']
+['okinawa', 'hokkaido', 'tokyo'].sort(compareSanDistrictIds) // ['hokkaido', 'tokyo', 'okinawa']
+
+// 日付を指定したい場合は compareSanDistrictIdsAt を使う
+['okinawa', 'hokkaido', 'tokyo'].sort(compareSanDistrictIdsAt('2025-07-01')) // ['hokkaido', 'tokyo', 'okinawa']
 ```
 
 * `sanDistricts2015`: 2015年に施行された改正公職選挙法による選挙区の一覧
