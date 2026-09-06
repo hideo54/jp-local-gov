@@ -1,6 +1,11 @@
 import { getOne } from '../../lib.js';
-import type { SanDistrict2015 } from './senkyoku/2015-11-05.js';
+import type {
+    SanDistrict2015,
+    SanDistrictId2015,
+} from './senkyoku/2015-11-05.js';
 import { sanDistricts2015 } from './senkyoku/2015-11-05.js';
+
+export type SanDistrictId = SanDistrictId2015;
 
 interface SanDistrictVersion {
     enforcedFrom: string;
@@ -23,6 +28,9 @@ const getSanDistrictVersion = (date?: string): SanDistrictVersion => {
     }
     return version;
 };
+
+export const isSanDistrictId = (s: string, date?: string): s is SanDistrictId =>
+    getSanDistrictVersion(date).districts.some(d => d.id === s);
 
 export const getSanDistrictName = (id: string, date?: string): string =>
     getOne(

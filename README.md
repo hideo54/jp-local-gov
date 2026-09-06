@@ -80,9 +80,12 @@ isShuHireiBlockIdWithPrefix('kinki')         // false
 
 ```ts
 // date は省略可能で、省略した場合は最新の制度 (現在は2015年施行のもの) を使う
+isSanDistrictId('tottori-shimane') // true
+isSanDistrictId('tottori') // false (2015年の合区により単独の選挙区ではなくなったため)
 getSanDistrictName('tottori-shimane') // '鳥取県・島根県'
 getSanDistrictSeats('tokyo') // 6
 
+isSanDistrictId('tottori-shimane', '2025-07-01') // true
 getSanDistrictName('tottori-shimane', '2025-07-01') // '鳥取県・島根県'
 getSanDistrictSeats('tokyo', '2025-07-01') // 6
 
@@ -95,6 +98,7 @@ getSanDistrictSeats('tokyo', '2025-07-01') // 6
 
 * `sanDistricts2015`: 2015年に施行された改正公職選挙法による選挙区の一覧
 * 型 `SanDistrictId2015`: 当ライブラリが定めた選挙区の ID (基本的に上述の都道府県 ID であり、合区の場合は日本産業規格で定められた順でハイフンで繋げたもの)
+* 型 `SanDistrictId`: 最新の制度における選挙区の ID (現在は `SanDistrictId2015` と同一)
 
 ### 全国地方公共団体コード
 

@@ -4,6 +4,7 @@ import {
     compareSanDistrictIdsAt,
     getSanDistrictName,
     getSanDistrictSeats,
+    isSanDistrictId,
 } from './utility.js';
 
 describe('compareSanDistrictIdsAt', () => {
@@ -101,5 +102,29 @@ describe('getSanDistrictSeats without date', () => {
         expect(() => getSanDistrictSeats('unknown')).toThrow(
             'Item not found: unknown',
         );
+    });
+});
+
+describe('isSanDistrictId', () => {
+    it('returns true for valid id', () => {
+        expect(isSanDistrictId('tokyo', '2016-07-10')).toBe(true);
+    });
+    it('returns true for 合区 district', () => {
+        expect(isSanDistrictId('tottori-shimane', '2016-07-10')).toBe(true);
+    });
+    it('returns false for unknown id', () => {
+        expect(isSanDistrictId('unknown', '2016-07-10')).toBe(false);
+    });
+    it('returns false for prefecture id merged into a 合区', () => {
+        expect(isSanDistrictId('tottori', '2016-07-10')).toBe(false);
+    });
+    it('throws for date predating the district system', () => {
+        expect(() => isSanDistrictId('tokyo', '2015-01-01')).toThrow(
+            'Date predates the current san district system: 2015-01-01',
+        );
+    });
+    it('uses the latest district system without date', () => {
+        expect(isSanDistrictId('tokyo')).toBe(true);
+        expect(isSanDistrictId('unknown')).toBe(false);
     });
 });
