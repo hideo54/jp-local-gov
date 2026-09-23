@@ -135,6 +135,22 @@ searchByName('大阪', { partial: true })               // 部分一致
 
 これ以前のデータには現時点で対応していません。
 
+### 人口
+
+令和2年 (2020年) 国勢調査による、日本人人口 (外国人を含まない) を扱います。キーは上述の全国地方公共団体コード (検査数字付き6桁) です。
+
+```ts
+japanesePopulationByMunicipality2020['271004'] // 2550968 (大阪市)
+japanesePopulationByMunicipality2020['270008'] // 8411856 (大阪府)
+japanesePopulationByMunicipality2020['000001'] // 121541155 (全国)
+japanesePopulationByMunicipality2020[code + calculateCheckDigit(code)] // 5桁のコードから引く場合
+```
+
+* `japanesePopulationByMunicipality2020`: 全国・都道府県・市区町村・政令指定都市の区ごとの日本人人口
+  * 2020年10月1日時点の区域・コードに基づくため、2024年に再編された浜松市の区は旧区のコードで収録
+  * 東京都の特別区部全体 (`131008`) を含む
+  * 北方領土の6村は含まない
+
 ### 地域メッシュコード
 
 JIS X 0410 で定められている「地域メッシュコード」のための機能群です。業界でみられる様々な非標準拡張にも対応しています。
