@@ -158,6 +158,16 @@ describe('searchByName', () => {
                 searchByName('大阪府', { excludePrefectures: true }),
             ).toHaveLength(0);
         });
+        it('excludeUnadministered removes municipalities in the Northern Territories', () => {
+            const options = { prefectureName: '北海道' };
+            expect(searchByName('泊村', options)).toHaveLength(2);
+            const results = searchByName('泊村', {
+                ...options,
+                excludeUnadministered: true,
+            });
+            expect(results).toHaveLength(1);
+            expect(results[0]).toMatchObject({ code: '014036' });
+        });
         it('excludePrefectures filters out prefecture from partial results', () => {
             const all = searchByName('奈良', { partial: true });
             expect(all.some(r => r.type === 'prefecture')).toBe(true); // 奈良県 included

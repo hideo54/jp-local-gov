@@ -50,12 +50,22 @@ export const findByCode = (
     return codeMapsByVersion.get(version)?.get(codeWithCheckDigit);
 };
 
+const unadministeredMunicipalityCodes: ReadonlySet<string> = new Set([
+    '016951', // 色丹村 (北方領土)
+    '016969', // 泊村 (北方領土)
+    '016977', // 留夜別村 (北方領土)
+    '016985', // 留別村 (北方領土)
+    '016993', // 紗那村 (北方領土)
+    '017001', // 蘂取村 (北方領土)
+]);
+
 export interface SearchByNameOption {
     version?: Version;
     prefectureName?: string;
     excludeDesignatedCityWards?: boolean;
     excludeMunicipalities?: boolean;
     excludePrefectures?: boolean;
+    excludeUnadministered?: boolean;
     partial?: boolean;
 }
 
@@ -69,6 +79,7 @@ export const searchByName = (
         excludeDesignatedCityWards = false,
         excludeMunicipalities = false,
         excludePrefectures = false,
+        excludeUnadministered = false,
         partial = false,
     } = options ?? {};
     const { designatedCityWards, municipalities, prefectures } =
@@ -92,7 +103,11 @@ export const searchByName = (
                     (matches(municipality.municipalityName) ||
                         matches(municipality.municipalityRuby)) &&
                     (!prefectureName ||
-                        municipality.prefectureName === prefectureName),
+                        municipality.prefectureName === prefectureName) &&
+                    !(
+                        excludeUnadministered &&
+                        unadministeredMunicipalityCodes.has(municipality.code)
+                    ),
             ),
         );
     }

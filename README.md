@@ -126,6 +126,7 @@ searchByName('大阪', { partial: true })               // 部分一致
   * `prefectureName`: 都道府県名で絞り込み
   * `partial`: `true` にすると部分一致検索
   * `excludeDesignatedCityWards` / `excludeMunicipalities` / `excludePrefectures`: 対象種別の除外
+  * `excludeUnadministered`: `true` にすると日本の施政が及んでいない自治体 (北方領土の6村) を除外
 * 型 `Prefecture` / `Municipality` / `DesignatedCityWard`: 各エントリの型
 
 #### 利用データ
