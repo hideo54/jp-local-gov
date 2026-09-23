@@ -334,7 +334,7 @@ export const municipalities: readonly Municipality[] = [
         code: '013625',
         type: 'municipality',
         prefectureName: '北海道',
-        municipalityName: '上の国町',
+        municipalityName: '上ノ国町',
         municipalityRuby: 'かみのくにちょう',
     },
     {
@@ -404,7 +404,7 @@ export const municipalities: readonly Municipality[] = [
         code: '013951',
         type: 'municipality',
         prefectureName: '北海道',
-        municipalityName: 'にせこ町',
+        municipalityName: 'ニセコ町',
         municipalityRuby: 'にせこちょう',
     },
     {
@@ -1391,14 +1391,14 @@ export const municipalities: readonly Municipality[] = [
         code: '023078',
         type: 'municipality',
         prefectureName: '青森県',
-        municipalityName: '外ゖ浜町',
+        municipalityName: '外ヶ浜町',
         municipalityRuby: 'そとがはままち',
     },
     {
         code: '023213',
         type: 'municipality',
         prefectureName: '青森県',
-        municipalityName: '鰺ゖ沢町',
+        municipalityName: '鰺ヶ沢町',
         municipalityRuby: 'あじがさわまち',
     },
     {
@@ -1496,7 +1496,7 @@ export const municipalities: readonly Municipality[] = [
         code: '024112',
         type: 'municipality',
         prefectureName: '青森県',
-        municipalityName: '六ゖ所村',
+        municipalityName: '六ヶ所村',
         municipalityRuby: 'ろっかしょむら',
     },
     {
@@ -1720,7 +1720,7 @@ export const municipalities: readonly Municipality[] = [
         code: '033812',
         type: 'municipality',
         prefectureName: '岩手県',
-        municipalityName: '金け崎町',
+        municipalityName: '金ケ崎町',
         municipalityRuby: 'かねがさきちょう',
     },
     {
@@ -1916,7 +1916,7 @@ export const municipalities: readonly Municipality[] = [
         code: '043028',
         type: 'municipality',
         prefectureName: '宮城県',
-        municipalityName: '七ゖ宿町',
+        municipalityName: '七ヶ宿町',
         municipalityRuby: 'しちかしゅくまち',
     },
     {
@@ -1979,7 +1979,7 @@ export const municipalities: readonly Municipality[] = [
         code: '044041',
         type: 'municipality',
         prefectureName: '宮城県',
-        municipalityName: '七ゖ浜町',
+        municipalityName: '七ヶ浜町',
         municipalityRuby: 'しちがはままち',
     },
     {
@@ -2931,7 +2931,7 @@ export const municipalities: readonly Municipality[] = [
         code: '082082',
         type: 'municipality',
         prefectureName: '茨城県',
-        municipalityName: '龍け崎市',
+        municipalityName: '龍ケ崎市',
         municipalityRuby: 'りゅうがさきし',
     },
     {
@@ -3862,7 +3862,7 @@ export const municipalities: readonly Municipality[] = [
         code: '112411',
         type: 'municipality',
         prefectureName: '埼玉県',
-        municipalityName: '鶴ゖ島市',
+        municipalityName: '鶴ヶ島市',
         municipalityRuby: 'つるがしまし',
     },
     {
@@ -4205,7 +4205,7 @@ export const municipalities: readonly Municipality[] = [
         code: '122246',
         type: 'municipality',
         prefectureName: '千葉県',
-        municipalityName: '鎌け谷市',
+        municipalityName: '鎌ケ谷市',
         municipalityRuby: 'かまがやし',
     },
     {
@@ -4240,7 +4240,7 @@ export const municipalities: readonly Municipality[] = [
         code: '122297',
         type: 'municipality',
         prefectureName: '千葉県',
-        municipalityName: '袖け浦市',
+        municipalityName: '袖ケ浦市',
         municipalityRuby: 'そでがうらし',
     },
     {
@@ -4856,7 +4856,7 @@ export const municipalities: readonly Municipality[] = [
         code: '134023',
         type: 'municipality',
         prefectureName: '東京都',
-        municipalityName: '青ゖ島村',
+        municipalityName: '青ヶ島村',
         municipalityRuby: 'あおがしまむら',
     },
     {
@@ -4926,7 +4926,7 @@ export const municipalities: readonly Municipality[] = [
         code: '142077',
         type: 'municipality',
         prefectureName: '神奈川県',
-        municipalityName: '茅ゖ崎市',
+        municipalityName: '茅ヶ崎市',
         municipalityRuby: 'ちがさきし',
     },
     {
@@ -5710,7 +5710,7 @@ export const municipalities: readonly Municipality[] = [
         code: '192082',
         type: 'municipality',
         prefectureName: '山梨県',
-        municipalityName: '南あるぷす市',
+        municipalityName: '南アルプス市',
         municipalityRuby: 'みなみあるぷすし',
     },
     {
@@ -5920,7 +5920,7 @@ export const municipalities: readonly Municipality[] = [
         code: '202100',
         type: 'municipality',
         prefectureName: '長野県',
-        municipalityName: '駒ゖ根市',
+        municipalityName: '駒ヶ根市',
         municipalityRuby: 'こまがねし',
     },
     {
@@ -6347,7 +6347,7 @@ export const municipalities: readonly Municipality[] = [
         code: '205613',
         type: 'municipality',
         prefectureName: '長野県',
-        municipalityName: '山の内町',
+        municipalityName: '山ノ内町',
         municipalityRuby: 'やまのうちまち',
     },
     {
@@ -6571,7 +6571,7 @@ export const municipalities: readonly Municipality[] = [
         code: '213624',
         type: 'municipality',
         prefectureName: '岐阜県',
-        municipalityName: '関け原町',
+        municipalityName: '関ケ原町',
         municipalityRuby: 'せきがはらちょう',
     },
     {
@@ -9147,7 +9147,7 @@ export const municipalities: readonly Municipality[] = [
         code: '325261',
         type: 'municipality',
         prefectureName: '島根県',
-        municipalityName: '西の島町',
+        municipalityName: '西ノ島町',
         municipalityRuby: 'にしのしまちょう',
     },
     {
@@ -10806,7 +10806,7 @@ export const municipalities: readonly Municipality[] = [
         code: '413275',
         type: 'municipality',
         prefectureName: '佐賀県',
-        municipalityName: '吉野ゖ里町',
+        municipalityName: '吉野ヶ里町',
         municipalityRuby: 'よしのがりちょう',
     },
     {
@@ -11639,7 +11639,7 @@ export const municipalities: readonly Municipality[] = [
         code: '454435',
         type: 'municipality',
         prefectureName: '宮崎県',
-        municipalityName: '五ゖ瀬町',
+        municipalityName: '五ヶ瀬町',
         municipalityRuby: 'ごかせちょう',
     },
     {

@@ -294,7 +294,7 @@ export const designatedCityWards: readonly DesignatedCityWard[] = [
         type: 'designated-city-ward',
         prefectureName: '神奈川県',
         municipalityName: '横浜市',
-        cityName: '横浜市保土け谷区',
+        cityName: '横浜市保土ケ谷区',
         cityRuby: 'よこはましほどがやく',
     },
     {

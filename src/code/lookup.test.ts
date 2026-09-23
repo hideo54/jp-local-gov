@@ -78,6 +78,25 @@ describe('searchByName', () => {
             expect(results).toHaveLength(1);
             expect(results[0]).toMatchObject({ prefectureName: '大阪府' });
         });
+        it('finds names containing katakana', () => {
+            expect(searchByName('ニセコ町')[0]).toMatchObject({
+                code: '013951',
+            });
+            expect(searchByName('茅ヶ崎市')[0]).toMatchObject({
+                code: '142077',
+            });
+            expect(searchByName('袖ケ浦市')[0]).toMatchObject({
+                code: '122297',
+            });
+            expect(searchByName('横浜市保土ケ谷区')[0]).toMatchObject({
+                code: '141062',
+            });
+        });
+        it('finds names containing hiragana', () => {
+            expect(searchByName('さいたま市')[0]).toMatchObject({
+                code: '111007',
+            });
+        });
         it('returns empty array for no match', () => {
             expect(searchByName('存在しない自治体')).toHaveLength(0);
         });
